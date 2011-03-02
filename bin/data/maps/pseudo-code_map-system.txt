@@ -1,0 +1,33 @@
+This is sort of pseudo code for developing a more robust map system, this file may change rapidly
+
+***********
+ New Ideas
+***********
+Possibly make a TCOD_color_t array for having each map tiles color stored, this way we can make multiple tiles
+a slight variation in color without needing to compute this during rendering.
+
+main:
+create char array for map[HEIGHT * WIDTH]
+create TCOD_map_t for fov/pathfinding with MAP_WIDTH, MAP_HEIGHT dimensions
+pass map array to a function for writing a file to it
+pass map array and TCOD_map to a function for building the data necessary for fov/pathfinding
+compute fov
+pass map array and TCOD_map for drawing to the main console
+
+getMapFromFile:
+load .map file
+use the fgetc function and load the entire file to the array
+convert any \n or unknown ASCII (-1) to 35's (#)
+assign player spawn position from ASCII code 64 (@) and assign 46 (.) there for drawing
+
+createTCODmap:
+start a giant for loop for the map array
+read in the array
+any tile with the ASCII codes 35 (#) or 43 (+) is blocking
+all other tiles do not block
+
+r_drawMap:
+for loop for array
+draw tiles to screen with TCOD_console_put_char_ex
+compute color with TCOD_map_is_in_fov
+
