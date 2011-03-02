@@ -87,7 +87,6 @@ void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
 					map_colors[y][x].b = 127;
 					break;
 				case LAVA:
-					//*map[y][x] = WATER; //Use water tiles for lava.
 					map_colors[y][x].r = TCOD_random_get_int(NULL, 180, 200);
 					map_colors[y][x].g = TCOD_random_get_int(NULL, 32, 128);
 					map_colors[y][x].b = 16;
@@ -95,9 +94,9 @@ void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
 				case DOOR:
 					door[i].x = x;
 					door[i].y = y;
-
-					printf("Door %i at (%i, %i)\n", i, x, y);
-
+#ifdef DEBUG
+					printf("[Debug] Door %i at (%i, %i)\n", i, x, y);
+#endif
 					i++;
 
 					map_colors[y][x].r = 200;
@@ -164,7 +163,6 @@ void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
 	}
 
 	fclose(map_file);
-	printf("\n");
 }
 
 int count_doors(const char *filename) {
