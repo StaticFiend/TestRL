@@ -1,5 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror -O3
+#Doing the -rpath . here simply so someone doesn't have to move the libtcod library into their /usr/lib if they want.
 LDFLAGS=-Wl,-rpath . -ltcod
 SOURCES=combat.c monster.c map.c draw.c main.c
 OBJECTS=$(SOURCES:.c=.o)
