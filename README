@@ -1,5 +1,5 @@
 Roguelike using libtcod 1.5.0,  please visit http://doryen.eptalys.net/libtcod/ to download a copy of the library,
-though the include files are already included with this release.  see LIBTCOD-LICENSE.txt for the appropriate
+though the include files are already included with this release.  See LIBTCOD-LICENSE.txt for the appropriate
 licensing for use.
 
 Has been tested on a ASUS EEE clocked at 1.6GHz and 1GB of RAM, using OpenSuSE 11.3 x86_64.  Should work fine
