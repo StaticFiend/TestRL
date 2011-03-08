@@ -168,13 +168,15 @@ int main(int argc, char **argv) {
 	object_t player;
 //	object_t *monster;
 	tile_t *door;
+	tile_t stairs;
 
 	char map[MAP_HEIGHT][MAP_WIDTH];
 	char map_file[256] = "", map_config[256] = "";
 	char *saveChar;
 	bool done = false;
 
-	int size, stair_x, stair_y, door_count = 0;
+	//TODO: stair_x and stair_y should be replaced entirely by the tile_t stairs;
+	int size, door_count = 0;
 //	int mon_num = 0;
 
 	if (argc == 1) {
@@ -213,7 +215,7 @@ int main(int argc, char **argv) {
 	}
 
 	door = malloc(sizeof(tile_t) * door_count);
-	load_map_from_file(map_file, map, map_colors, &player, &stair_x, &stair_y, door);
+	load_map_from_file(map_file, map, map_colors, &player, &stairs, door);
 	load_map_config(map_config, &player.radius, &fov_formula);
 	tcod_map = create_tcod_map(map, discovered);
 //	createMonster(monster, mon_num, tcod_map);
@@ -253,7 +255,7 @@ int main(int argc, char **argv) {
 
 		draw_map(map, map_colors, tcod_map, discovered);
 		draw_hud(player);
-		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Distance to stairs: %i     ", distance(player.x, player.y, stair_x, stair_y + 5)); //This may or may not be kept, might consider adding it to the HUD somewhere
+		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Distance to stairs: %i     ", distance(player.x, player.y, stairs.x, stairs.y + 5)); //This may or may not be kept, might consider adding it to the HUD somewhere
 
 //		draw_monster(monster, mon_num, tcod_map);
 		draw_player(player);
@@ -314,7 +316,7 @@ int main(int argc, char **argv) {
 		//Change this to DoomRL style saving.  You can only save on downstairs, and it will auto-descend.
 		//This way we don't have to store as much information, we can ignore saving discovered[] and just save
 		//player data, and if the next map will be special (ie: from file) or not.
-		if (key.c == 'S' && distance(player.x, player.y, stair_x, stair_y + 5) == 0) {
+		if (key.c == 'S' && distance(player.x, player.y, stairs.x, stairs.y + 5) == 0) {
 			//Increment dlvl, keep current inventory/spells/hp/mp, don't save x/y, run random check for special
 			//(dlvl * 2.5)% of next level being special
 			int special = TCOD_random_get_int(NULL, 1, 100);
@@ -341,7 +343,7 @@ int main(int argc, char **argv) {
 			return 0;
 		}
 		//Obviously make this do more.
-		if (key.c == '>' && distance(player.x, player.y, stair_x, stair_y + 5) == 0) {
+		if (key.c == '>' && distance(player.x, player.y, stairs.x, stairs.y + 5) == 0) {
 				player.dlvl++;
 		}
 
