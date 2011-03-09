@@ -39,11 +39,11 @@ IDEAS:
 * Try implementing a monster, doesn't have to do anything in particular, just wander around or decide to stand still.
 */
 
-#include "../include/trl-main.h"
-#include "../include/trl-map.h"
-#include "../include/trl-cave.h"
-#include "../include/trl-draw.h"
-#include "../include/trl-monster.h"
+#include "trl-main.h"
+#include "trl-map.h"
+#include "trl-cave.h"
+#include "trl-draw.h"
+#include "trl-monster.h"
 
 //FIXME: Rewrite this to use arrays for object_t
 /*void mon_AI(object_t *monster, TCOD_map_t map) {

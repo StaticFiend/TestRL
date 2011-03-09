@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2d-map.c - Handles map related functions (using a 2D Array)
 */
 
-#include "../include/trl-main.h"
+#include "trl-main.h"
 
 /*
  * void load_map_from_file()

@@ -28,8 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 cave-walk.c - this handles the random walk routines for generating caves.
 */
 
-#include "../include/trl-main.h"
-#include "../include/trl-map.h"
+#include "trl-main.h"
+#include "trl-map.h"
 
 void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 	switch(dir) {

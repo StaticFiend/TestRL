@@ -1,4 +1,4 @@
-#include "../include/trl-main.h"
+#include "trl-main.h"
 
 void check_tile(object_t *object, char map[][MAP_WIDTH]) {
 	//We use this to check if a tile will hurt us, or inflict some status effect.

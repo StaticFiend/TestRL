@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2d-draw.c - Handles drawing related functions (using 2D Arrays)
 */
 
-#include "../include/trl-main.h"
+#include "trl-main.h"
 
 void draw_player(object_t player) {
 	TCOD_color_t player_color;

@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 monster.c - Handles all monster related events and stats.
 */
 
-#include "../include/trl-main.h"
+#include "trl-main.h"
 
 //Do some AI stuff here, herp a derp.
 void monster_change_state(object_t *monster, int index, uint8_t new_state) {
