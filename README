@@ -1,10 +1,10 @@
 Roguelike using libtcod 1.5.0,  please visit http://doryen.eptalys.net/libtcod/ to download a copy of the library,
-though the include files are already included with this release.  See LIBTCOD-LICENSE.txt for the appropriate
-licensing for use.
+though the include/library files are already included with this release for ease of compiling.
+LIBTCOD-LICENSE.txt is included as well in this release, please read it if you wish to use libtcod in a project.
 
-Has been tested on a ASUS EEE clocked at 1.6GHz and 1GB of RAM, using OpenSuSE 11.3 x86_64.  Should work fine
+TestRL has been tested on a ASUS EEE clocked at 1.6GHz and 1GB of RAM, using OpenSuSE 11.3 x86_64.  Should work fine
 under any flavor of Linux, and should work perfectly fine under Windows, but I have yet to test that as of
-3/1/2011.
+3/1/2011.  If you need to compile this for 32-bit the 32-bit library is also included.
 
 Current Progress:
 [3/9/11] Initial commit of this progress.
