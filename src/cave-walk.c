@@ -91,7 +91,9 @@ void cave_place_stairs(char map[][MAP_WIDTH], object_t player, tile_t *stairs) {
 			continue;
 
 		cur_dist = distance(player.x, player.y, stairs->x, stairs->y);
+
 		times_run++;
+
 		if (cur_dist > largest_dist) {
 			largest_x = stairs->x;
 			largest_y = stairs->y;
@@ -102,7 +104,7 @@ void cave_place_stairs(char map[][MAP_WIDTH], object_t player, tile_t *stairs) {
 			stairs->x = largest_x;
 			stairs->y = largest_y;
 			map[largest_y][largest_x] = STAIRS;
-			break;
+			stairs_placed = 1;
 		}
 	}
 }
