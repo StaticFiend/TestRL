@@ -50,7 +50,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * data is not respresented by the same symbol in the game, then it is changed here as well.
 */
 void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
-	       	TCOD_color_t map_colors[][MAP_WIDTH], object_t *player, int *stair_x, int *stair_y,
+	       	TCOD_color_t map_colors[][MAP_WIDTH], object_t *player, tile_t *stairs,
 		tile_t *door) {
 
 	static int stairs_found = 0, player_found = 0;
@@ -108,8 +108,8 @@ void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
 					if (stairs_found == 1 && map[y][x] == STAIRS)
 						map[y][x] = GROUND;
 					else if (stairs_found == 0 && map[y][x] == STAIRS) {
-						*stair_x = x;
-						*stair_y = y;
+						stairs->x = x;
+						stairs->y = y;
 						stairs_found = 1;
 					}
 

@@ -125,7 +125,7 @@ void generate_cave(char map[][MAP_WIDTH], TCOD_map_t *fov_map, TCOD_color_t colo
 	create_tcod_map(map, discovered);
 	cave_place_player(map, player);
 	cave_place_stairs(map, *player, stairs);
-	get_colors(map, color_map);
+	random_get_colors(map, color_map);
 
 	//FIXME: Finish this.
 }

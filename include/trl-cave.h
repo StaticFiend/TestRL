@@ -25,25 +25,12 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-map.h - map.c function prototypes.
+trl-cave.h - function prototypes for cave-walk.c
 */
 
-void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
-		TCOD_color_t map_colors[][MAP_WIDTH], object_t *player,
-		tile_t *stairs, tile_t *door);
-int count_doors(const char *filename);
-void load_map_config(const char *filename, uint8_t *radius, uint8_t *fov_formula);
+void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker);
+void cave_place_player(char map[][MAP_WIDTH], object_t *player);
+void cave_place_stairs(char map[][MAP_WIDTH], object_t player, tile_t *stairs)
+void generate_cave(char map[][MAP_WIDTH], TCOD_map_t *fov_map, TCOD_color_t color_map[][MAP_WIDTH],
+		uint8_t discovered[][MAP_WIDTH], object_t *player, tile_t *stairs);
 
-TCOD_map_t create_tcod_map(char map[MAP_HEIGHT][MAP_WIDTH], uint8_t discovered[][MAP_WIDTH]);
-
-void use_door(int direction, object_t player, tile_t *door, TCOD_map_t *fov_map, 
-		char map[MAP_HEIGHT][MAP_WIDTH], int door_count, int open);
-void close_door(int direction, object_t player, tile_t *door, TCOD_map_t *fov_map,
-		char map[MAP_HEIGHT][MAP_WIDTH], int door_count);
-
-//int countDoors(const char *filename);
-//void getMapFromFile(const char *filename, char map[MAP_HEIGHT * MAP_WIDTH], TCOD_color_t map_colors[MAP_HEIGHT * MAP_WIDTH], object_t *player, int *stair_x, int *stair_y, tile_t *door, int count);
-//TCOD_map_t createTCODmap(char map[MAP_HEIGHT * MAP_WIDTH], uint8_t discovered[MAP_HEIGHT * MAP_WIDTH]);
-//void loadMapConfig(const char *filename, uint8_t *radius, uint8_t *fov_formula);
-//void open_door(int direction, object_t player, tile_t *door, TCOD_map_t *fov_map, char *map, int door_count);
-//void close_door(int direction, object_t player, tile_t *door, TCOD_map_t *fov_map, char *map, int door_count);
