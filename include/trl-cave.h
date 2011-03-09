@@ -30,7 +30,5 @@ trl-cave.h - function prototypes for cave-walk.c
 
 void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker);
 void cave_place_player(char map[][MAP_WIDTH], object_t *player);
-void cave_place_stairs(char map[][MAP_WIDTH], object_t player, tile_t *stairs)
-void generate_cave(char map[][MAP_WIDTH], TCOD_map_t *fov_map, TCOD_color_t color_map[][MAP_WIDTH],
-		uint8_t discovered[][MAP_WIDTH], object_t *player, tile_t *stairs);
-
+void cave_place_stairs(char map[][MAP_WIDTH], object_t player, tile_t *stairs);
+void generate_cave(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH], object_t *player, tile_t *stairs);

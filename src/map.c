@@ -165,6 +165,54 @@ void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
 	fclose(map_file);
 }
 
+void random_get_colors(char map[][MAP_WIDTH], TCOD_color_t map_colors[][MAP_WIDTH]) {
+	int x, y;
+
+	for (x = 0; x < MAP_WIDTH; x++) {
+		for (y = 0; y < MAP_HEIGHT; y++) {
+ 			switch((int)map[y][x]) {
+				case WALL:
+					map_colors[y][x].r = TCOD_random_get_int(NULL, 59, 118);
+					map_colors[y][x].g = TCOD_random_get_int(NULL, 68, 136);
+					map_colors[y][x].b = TCOD_random_get_int(NULL, 75, 150);
+					break;
+				case LAVA:
+					map_colors[y][x].r = TCOD_random_get_int(NULL, 180, 200);
+					map_colors[y][x].g = TCOD_random_get_int(NULL, 32, 128);
+					map_colors[y][x].b = 16;
+					break;
+				case GROUND:
+				case STAIRS:
+					map_colors[y][x].r = 255;
+					map_colors[y][x].g = 255;
+					map_colors[y][x].b = 255;
+					break;
+				case TREE:
+					map_colors[y][x].r = 40;
+					map_colors[y][x].g = TCOD_random_get_int(NULL, 180, 230);
+					map_colors[y][x].b = 40;
+					break;
+				case BLOOD:
+					map[y][x] = GROUND;
+					map_colors[y][x].r = TCOD_random_get_int(NULL, 130, 200);
+					map_colors[y][x].g = 20;
+					map_colors[y][x].b = 20;
+					break;
+				case GRASS:
+					map_colors[y][x].r = 0;
+					map_colors[y][x].g = TCOD_random_get_int(NULL, 100, 170);
+					map_colors[y][x].b = 0;
+					break;
+				case WATER:
+					map_colors[y][x].r = 0;
+					map_colors[y][x].g = 60;
+					map_colors[y][x].b = TCOD_random_get_int(NULL, 150, 250);
+					break;
+			}
+		}
+	}
+}
+
 int count_doors(const char *filename) {
 	int count = 0;
 	char temp;
@@ -300,6 +348,16 @@ void use_door(int direction, object_t player, tile_t *door, TCOD_map_t *fov_map,
 					TCOD_map_set_properties(*fov_map, player.x - 1, player.y - 5, false, false);
 				}
 			}
+		}
+	}
+}
+
+void fill_map(char map[][MAP_WIDTH], const char sym) {
+	int x, y;
+
+	for (x = 0; x < MAP_WIDTH; x++) {
+		for (y = 0; y < MAP_HEIGHT; y++) {
+			map[y][x] = sym;
 		}
 	}
 }

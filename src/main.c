@@ -41,6 +41,7 @@ IDEAS:
 
 #include "../include/trl-main.h"
 #include "../include/trl-map.h"
+#include "../include/trl-cave.h"
 #include "../include/trl-draw.h"
 #include "../include/trl-monster.h"
 
@@ -345,6 +346,8 @@ int main(int argc, char **argv) {
 		//Obviously make this do more.
 		if (key.c == '>' && distance(player.x, player.y, stairs.x, stairs.y + 5) == 0) {
 				player.dlvl++;
+				generate_cave(map, map_colors, &player, &stairs);
+				tcod_map = create_tcod_map(map, discovered);
 		}
 
 //		ai_move(monster, mon_num, tcod_map, player); //Run all monster related events after the player has moved.

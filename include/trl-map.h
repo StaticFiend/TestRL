@@ -31,6 +31,7 @@ map.h - map.c function prototypes.
 void load_map_from_file(const char *filename, char map[][MAP_WIDTH],
 		TCOD_color_t map_colors[][MAP_WIDTH], object_t *player,
 		tile_t *stairs, tile_t *door);
+void random_get_colors(char map[][MAP_WIDTH], TCOD_color_t map_colors[][MAP_WIDTH]);
 int count_doors(const char *filename);
 void load_map_config(const char *filename, uint8_t *radius, uint8_t *fov_formula);
 
@@ -40,7 +41,7 @@ void use_door(int direction, object_t player, tile_t *door, TCOD_map_t *fov_map,
 		char map[MAP_HEIGHT][MAP_WIDTH], int door_count, int open);
 void close_door(int direction, object_t player, tile_t *door, TCOD_map_t *fov_map,
 		char map[MAP_HEIGHT][MAP_WIDTH], int door_count);
-
+void fill_map(char map[][MAP_WIDTH], const char sym);
 //int countDoors(const char *filename);
 //void getMapFromFile(const char *filename, char map[MAP_HEIGHT * MAP_WIDTH], TCOD_color_t map_colors[MAP_HEIGHT * MAP_WIDTH], object_t *player, int *stair_x, int *stair_y, tile_t *door, int count);
 //TCOD_map_t createTCODmap(char map[MAP_HEIGHT * MAP_WIDTH], uint8_t discovered[MAP_HEIGHT * MAP_WIDTH]);

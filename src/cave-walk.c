@@ -66,7 +66,7 @@ void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 void cave_place_player(char map[][MAP_WIDTH], object_t *player) {
 	int player_placed = 0;
 
-	while (player_placed = 0) {
+	while (player_placed == 0) {
 		player->x = TCOD_random_get_int(NULL, 0, MAP_WIDTH - 1);
 		player->y = TCOD_random_get_int(NULL, 0, MAP_HEIGHT - 1);
 
@@ -79,15 +79,19 @@ void cave_place_player(char map[][MAP_WIDTH], object_t *player) {
 
 void cave_place_stairs(char map[][MAP_WIDTH], object_t player, tile_t *stairs) {
 	int stairs_placed = 0;
-	int largest_x, largest_y;
+	int largest_x = 0, largest_y = 0;
 	int cur_dist, largest_dist = 0;
 	int times_run = 0;
 
-	while (stairs_placed = 0) {
+	while (stairs_placed == 0) {
 		stairs->x = TCOD_random_get_int(NULL, 0, MAP_WIDTH - 1);
 		stairs->y = TCOD_random_get_int(NULL, 0, MAP_HEIGHT - 1);
 
+		if (map[stairs->y][stairs->x] != GROUND)
+			continue;
+
 		cur_dist = distance(player.x, player.y, stairs->x, stairs->y);
+		times_run++;
 		if (cur_dist > largest_dist) {
 			largest_x = stairs->x;
 			largest_y = stairs->y;
@@ -98,12 +102,13 @@ void cave_place_stairs(char map[][MAP_WIDTH], object_t player, tile_t *stairs) {
 			stairs->x = largest_x;
 			stairs->y = largest_y;
 			map[largest_y][largest_x] = STAIRS;
+			break;
 		}
 	}
 }
 
-void generate_cave(char map[][MAP_WIDTH], TCOD_map_t *fov_map, TCOD_color_t color_map[][MAP_WIDTH],
-		uint8_t discovered[][MAP_WIDTH], object_t *player, tile_t *stairs) {
+void generate_cave(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
+		object_t *player, tile_t *stairs) {
 
 	int count = 0, limit, direction = 0;
 
@@ -112,20 +117,17 @@ void generate_cave(char map[][MAP_WIDTH], TCOD_map_t *fov_map, TCOD_color_t colo
 	walker.x = TCOD_random_get_int(NULL, 0, MAP_WIDTH - 1);
 	walker.y = TCOD_random_get_int(NULL, 0, MAP_HEIGHT - 1);
 
+	fill_map(map, WALL);
 	map[walker.y][walker.x] = GROUND;
 
 	limit = TCOD_random_get_int(NULL, 4000, 6000);
 
 	while (count < limit) {
 		direction = TCOD_random_get_int(NULL, 1, 8);
-		random_walk(dir, map, &walker);
+		cave_walk(direction, map, &walker);
 		count++;
 	}
-
-	create_tcod_map(map, discovered);
 	cave_place_player(map, player);
 	cave_place_stairs(map, *player, stairs);
 	random_get_colors(map, color_map);
-
-	//FIXME: Finish this.
 }

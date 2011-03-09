@@ -30,16 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../include/trl-main.h"
 
-void fill_map(char map[MAP_HEIGHT][MAP_WIDTH], const char fill) {
-	int x, y;
-
-	for (y = 0; y < MAP_HEIGHT; y++) {
-		for (x = 0; x < MAP_WIDTH; x++) {
-			map[y][x] = fill;
-		}
-	}
-}
-
 void draw_player(object_t player) {
 	TCOD_color_t player_color;
 

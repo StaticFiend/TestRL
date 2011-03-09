@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 draw.h - draw.c prototypes
 */
 
-void fill_map(char map[MAP_HEIGHT][MAP_WIDTH], const char fill);
 void draw_player(object_t player);
 void draw_monster(object_t *monster, int num_of_mon, TCOD_map_t fov_map);
 void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
