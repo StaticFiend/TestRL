@@ -346,7 +346,7 @@ int main(int argc, char **argv) {
 
 			return 0;
 		}
-		if (key.c == 'g' && player.radius > 0) {
+		if (key.c == 'g' && player.radius > 0) { //Torches!
 			player.torch_lit = !player.torch_lit;
 
 			if (player.torch_lit == true)
@@ -365,6 +365,8 @@ int main(int argc, char **argv) {
 
 				//Maybe think of different odds, perhaps base this off of dungeon depth, lower
 				//you go the higher the chance of a dark floor.
+				//idea for formula: (dlvl * 1.5) + 1 - upper limit
+				//if lit_cave < (dlvl / 1.5)
 				lit_cave = TCOD_random_get_int(NULL, 1, 3);
 
 				if (lit_cave == 1) {
