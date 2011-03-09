@@ -165,6 +165,7 @@ int main(int argc, char **argv) {
 
 	uint8_t discovered[MAP_HEIGHT][MAP_WIDTH];
 	uint8_t fov_formula;
+	uint8_t lit_cave;
 
 	object_t player;
 //	object_t *monster;
@@ -343,11 +344,27 @@ int main(int argc, char **argv) {
 
 			return 0;
 		}
-		//Obviously make this do more.
 		if (key.c == '>' && distance(player.x, player.y, stairs.x, stairs.y + 5) == 0) {
 				player.dlvl++;
+				//There will be 2 random number checks when descending stairs, the first random number
+				//will determine if the next floor is going to be special (ie: loaded froma file), or
+				//if it'll be generated.  If it's to be generated, then another number will be randomized
+				//to determine whether this should be a cave or a dungeon.
 				generate_cave(map, map_colors, &player, &stairs);
 				tcod_map = create_tcod_map(map, discovered);
+
+				//Maybe think of different odds, perhaps base this off of dungeon depth, lower
+				//you go the higher the chance of a dark floor.
+				lit_cave = TCOD_random_get_int(NULL, 1, 3);
+
+				if (lit_cave == 1) {
+					player.radius = 0;
+					fov_formula = FOV_RESTRICTIVE;
+				}
+				else {
+					player.radius = 5;
+					fov_formula = FOV_SHADOW;
+				}
 		}
 
 //		ai_move(monster, mon_num, tcod_map, player); //Run all monster related events after the player has moved.

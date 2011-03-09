@@ -172,9 +172,9 @@ void random_get_colors(char map[][MAP_WIDTH], TCOD_color_t map_colors[][MAP_WIDT
 		for (y = 0; y < MAP_HEIGHT; y++) {
  			switch((int)map[y][x]) {
 				case WALL:
-					map_colors[y][x].r = TCOD_random_get_int(NULL, 59, 118);
-					map_colors[y][x].g = TCOD_random_get_int(NULL, 68, 136);
-					map_colors[y][x].b = TCOD_random_get_int(NULL, 75, 150);
+					map_colors[y][x].r = TCOD_random_get_int(NULL, 59, 85);
+					map_colors[y][x].g = TCOD_random_get_int(NULL, 68, 94);
+					map_colors[y][x].b = TCOD_random_get_int(NULL, 75, 101);
 					break;
 				case LAVA:
 					map_colors[y][x].r = TCOD_random_get_int(NULL, 180, 200);
