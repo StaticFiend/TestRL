@@ -107,6 +107,7 @@ typedef struct object_s {
 	uint8_t y;
 
 	uint8_t radius;
+	bool torch_lit;
 
 	uint8_t currentHP;
 	uint8_t currentMP;

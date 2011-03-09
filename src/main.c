@@ -107,6 +107,8 @@ void initPlayer(object_t *player) {
 	player->color[0] = 150;
 	player->color[1] = 150;
 	player->color[2] = 255;
+	
+	player->torch_lit = false;
 }
 
 //FIXME: Make this better.
@@ -344,6 +346,14 @@ int main(int argc, char **argv) {
 
 			return 0;
 		}
+		if (key.c == 'g' && player.radius > 0) {
+			player.torch_lit = !player.torch_lit;
+
+			if (player.torch_lit == true)
+				player.radius *= 2;
+			else if (player.torch_lit == false)
+				player.radius /= 2;
+		}
 		if (key.c == '>' && distance(player.x, player.y, stairs.x, stairs.y + 5) == 0) {
 				player.dlvl++;
 				//There will be 2 random number checks when descending stairs, the first random number
@@ -362,7 +372,11 @@ int main(int argc, char **argv) {
 					fov_formula = FOV_RESTRICTIVE;
 				}
 				else {
-					player.radius = 5;
+					if (player.torch_lit == true)
+						player.radius = 10;
+					else
+						player.radius = 5;
+
 					fov_formula = FOV_SHADOW;
 				}
 		}
