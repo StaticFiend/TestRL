@@ -5,3 +5,19 @@ licensing for use.
 Has been tested on a ASUS EEE clocked at 1.6GHz and 1GB of RAM, using OpenSuSE 11.3 x86_64.  Should work fine
 under any flavor of Linux, and should work perfectly fine under Windows, but I have yet to test that as of
 3/1/2011.
+
+Current Progress:
+[3/9/11] Initial commit of this progress.
+
+*       Loading a map from file is working properly.
+*       Bottom HUD system works. (hp/mp bars go down properly, etc)
+        Needs proper stats from player in there and other things.
+*       FOV system is working
+*       Movement and collision with map works.
+*       Distance between two points formula works.
+*       Saving on stairs works (saves most information necessary, last few things aren't in yet)
+*       Doors open/close properly.
+*       Switched entire map system to 2D arrays.
+*       Have cave randomized maps working in a separate test example, should be easy to implement
+        into the full program since things are 2D arrays now.
+*       Cave system fully implemented into main program.
