@@ -259,8 +259,9 @@ int main(int argc, char **argv) {
 
 		draw_map(map, map_colors, tcod_map, discovered);
 		draw_hud(player);
-		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Distance to stairs: %i     ", distance(player.x, player.y, stairs.x, stairs.y + 5)); //This may or may not be kept, might consider adding it to the HUD somewhere
-
+		//Kind of a temporary bandaid because there's no message system, thus "open in what direction?"
+		//sticks on the screen at all times.
+		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "                                    ");
 //		draw_monster(monster, mon_num, tcod_map);
 		draw_player(player);
 
@@ -283,7 +284,7 @@ int main(int argc, char **argv) {
 		if (key.vk == TCODK_RIGHT && TCOD_map_is_walkable(tcod_map, player.x + 1, player.y - 5))
 			player.x++;
 		//Door opening code!
-		//FIXME: Sort of an ugly solution to this, but it works.  See about rewriting map system.
+		//TODO: Need to add a proper message system at some point, that way this won't stick on the screen.
 		if (key.c == 'o') {
 			TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Open in what direction?");
 			TCOD_console_flush();
@@ -360,6 +361,8 @@ int main(int argc, char **argv) {
 				//will determine if the next floor is going to be special (ie: loaded froma file), or
 				//if it'll be generated.  If it's to be generated, then another number will be randomized
 				//to determine whether this should be a cave or a dungeon.
+				//Perhaps caves should be higher chance the lower you go, while dungeon is higher if you're
+				//just starting.
 				generate_cave(map, map_colors, &player, &stairs);
 				tcod_map = create_tcod_map(map, discovered);
 
