@@ -40,6 +40,7 @@ IDEAS:
 */
 
 #include "trl-main.h"
+#include "trl-combat.h"
 #include "trl-map.h"
 #include "trl-cave.h"
 #include "trl-draw.h"
@@ -385,6 +386,7 @@ int main(int argc, char **argv) {
 					fov_formula = FOV_SHADOW;
 				}
 		}
+
 
 //		ai_move(monster, mon_num, tcod_map, player); //Run all monster related events after the player has moved.
 	}
