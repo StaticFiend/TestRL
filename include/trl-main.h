@@ -107,6 +107,7 @@ typedef struct object_s {
 	uint8_t y;
 
 	uint8_t radius;
+	uint8_t torch_life;
 	bool torch_lit;
 
 	uint8_t currentHP;
@@ -124,6 +125,8 @@ typedef struct object_s {
 	uint8_t dlvl;
 
 	uint8_t state;
+
+	uint8_t turns;
 } object_t;
 
 typedef struct tile_s {

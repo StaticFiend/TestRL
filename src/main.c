@@ -110,6 +110,8 @@ void initPlayer(object_t *player) {
 	player->color[2] = 255;
 	
 	player->torch_lit = false;
+	player->turns = 0;
+	player->torch_life = 80;
 }
 
 //FIXME: Make this better.
@@ -348,7 +350,7 @@ int main(int argc, char **argv) {
 
 			return 0;
 		}
-		if (key.c == 'g' && player.radius > 0) { //Torches!
+		if (key.c == 'g' && player.radius > 0 && player.torch_life > 0) { //Torches!
 			player.torch_lit = !player.torch_lit;
 
 			if (player.torch_lit == true)
@@ -386,7 +388,14 @@ int main(int argc, char **argv) {
 					fov_formula = FOV_SHADOW;
 				}
 		}
+		player.turns++;
 
+		if (player.torch_lit == true)
+			player.torch_life--;
+		if (player.torch_lit == true && player.torch_life == 0) {
+			player.torch_lit = false;
+			player.radius /= 2;
+		}
 
 //		ai_move(monster, mon_num, tcod_map, player); //Run all monster related events after the player has moved.
 	}
