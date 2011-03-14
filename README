@@ -10,7 +10,12 @@ Windows users, to compile you'll need MinGW and the libtcod library from the web
 You'll need gcc and make.
 
 Current Progress:
-[3/9/11] Initial commit of this progress.
+[2011/3/14]
+
+*	Added a light system for the player in dark caves.
+*	Added lifespan to torches (80 turns right now, will have a system of restoring this later).
+
+[2011/3/9] Initial commit of this progress.
 
 *       Loading a map from file is working properly.
 *       Bottom HUD system works. (hp/mp bars go down properly, etc)
