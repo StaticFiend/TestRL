@@ -278,14 +278,28 @@ int main(int argc, char **argv) {
 		//stored, might as well use it.  It also makes it so that we don't have to check individual
 		//tiles for their code, we just know if they're walkable or not.
 		//FIXME: This all needs to be modified for combat purposes!
-		if (key.vk == TCODK_UP && TCOD_map_is_walkable(tcod_map, player.x, player.y - 6))
+		//TODO: Implement a proper turn system, right now this is just mostly fluff and is only on certain
+		//      actions.
+		if (key.vk == TCODK_UP && TCOD_map_is_walkable(tcod_map, player.x, player.y - 6)) {
 			player.y--;
-		if (key.vk == TCODK_DOWN && TCOD_map_is_walkable(tcod_map, player.x, player.y - 4))
+			player.turns++;
+		}
+		if (key.vk == TCODK_DOWN && TCOD_map_is_walkable(tcod_map, player.x, player.y - 4)) {
 			player.y++;
-		if (key.vk == TCODK_LEFT && TCOD_map_is_walkable(tcod_map, player.x - 1, player.y - 5))
+			player.turns++;
+		}
+		if (key.vk == TCODK_LEFT && TCOD_map_is_walkable(tcod_map, player.x - 1, player.y - 5)) {
 			player.x--;
-		if (key.vk == TCODK_RIGHT && TCOD_map_is_walkable(tcod_map, player.x + 1, player.y - 5))
+			player.turns++;
+		}
+		if (key.vk == TCODK_RIGHT && TCOD_map_is_walkable(tcod_map, player.x + 1, player.y - 5)) {
 			player.x++;
+			player.turns++;
+		}
+		if (key.c == 'h' && player.currentHP > 0) {
+			player.currentHP--;
+			player.hpPct = ((float)player.currentHP / (float)player.maxHP) * 10;
+		}
 		//Door opening code!
 		//TODO: Need to add a proper message system at some point, that way this won't stick on the screen.
 		if (key.c == 'o') {
@@ -302,6 +316,8 @@ int main(int argc, char **argv) {
 				use_door(RIGHT, player, door, &tcod_map, map, door_count, 1);
 			if (key.vk == TCODK_LEFT && TCOD_console_get_char(NULL, player.x - 1, player.y) == DOOR)
 				use_door(LEFT, player, door, &tcod_map, map, door_count, 1);
+			
+			player.turns++;
 		}
 		if (key.c == 'c') {
 			TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Close in what direction?");
@@ -317,9 +333,24 @@ int main(int argc, char **argv) {
 				use_door(RIGHT, player, door, &tcod_map, map, door_count, 0);
 			if (key.vk == TCODK_LEFT && TCOD_console_get_char(NULL, player.x - 1, player.y) == OPEN_DOOR)
 				use_door(LEFT, player, door, &tcod_map, map, door_count, 0);
+			
+			player.turns++;
 		}
 		if (key.vk == TCODK_BACKSPACE)
 			TCOD_sys_save_screenshot(NULL);
+		//TODO: Do this later, full on help system ingame.
+/*		if (key.c == '?') {
+			TCOD_console_print_frame(NULL, 2, 6, 42, 15, true, TCOD_BKGND_NONE, NULL);
+			TCOD_console_print_left(NULL, 3, 7, TCOD_BKGND_NONE, "TestRL Basic controls.");
+			TCOD_console_print_left(NULL, 3, 8, TCOD_BKGND_NONE, "Saving can only be done on downstairs.");
+			TCOD_console_print_left(NULL, 3, 9, TCOD_BKGND_NONE, "UP/DOWN/LEFT/RIGHT - Move player.");
+			TCOD_console_print_left(NULL, 3, 11, TCOD_BKGND_NONE,"i                  - displays inventory.");
+			TCOD_console_print_left(NULL, 3, 12, TCOD_BKGND_NONE,"g                  - lights torch.");
+			TCOD_console_print_left(NULL, 3, 13, TCOD_BKGND_NONE,"S                  - saves game.");
+
+			TCOD_console_flush();
+			key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
+		}*/
 
 		//Change this to DoomRL style saving.  You can only save on downstairs, and it will auto-descend.
 		//This way we don't have to store as much information, we can ignore saving discovered[] and just save
@@ -339,11 +370,16 @@ int main(int argc, char **argv) {
 				special = 0;
 
 			player.dlvl++;
+			player.turns++;
 
 			saveFile = fopen("current_game", "w");
 			fprintf(saveFile, "<player_currentHP = %i>\n<player_currentMP = %i>\n<player_maxHP = %i>\n<player_maxMP = %i>\n<player_dlvl = %i>\n<special = %i>\n", player.currentHP, player.currentMP, player.maxHP, player.maxMP, player.dlvl, special);
 
 			printf("[Console] Game saved, quitting...\n");
+			
+			TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Game saved, press any key to quit...");
+			TCOD_console_flush();
+			key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
 
 			fclose(saveFile);
 			TCOD_map_delete(tcod_map);
@@ -374,10 +410,12 @@ int main(int argc, char **argv) {
 				//idea for formula: (dlvl * 1.5) + 1 - upper limit
 				//if lit_cave < (dlvl / 1.5)
 				lit_cave = TCOD_random_get_int(NULL, 1, 3);
+				player.turns++;
 
 				if (lit_cave == 1) {
 					player.radius = 0;
 					fov_formula = FOV_RESTRICTIVE;
+					player.torch_lit = false;
 				}
 				else {
 					if (player.torch_lit == true)
@@ -388,7 +426,6 @@ int main(int argc, char **argv) {
 					fov_formula = FOV_SHADOW;
 				}
 		}
-		player.turns++;
 
 		if (player.torch_lit == true)
 			player.torch_life--;

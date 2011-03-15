@@ -126,7 +126,7 @@ typedef struct object_s {
 
 	uint8_t state;
 
-	uint8_t turns;
+	uint32_t turns;
 } object_t;
 
 typedef struct tile_s {

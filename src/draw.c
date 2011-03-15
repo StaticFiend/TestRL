@@ -102,16 +102,33 @@ void draw_hud(object_t player) {
 		TCOD_console_set_color_control(TCOD_COLCTRL_2, TCOD_white, TCOD_black);
 
 	//This looks weird but this all does line up in game, of course because % and \ take up extra characters.
-	TCOD_console_print_left(NULL, 0, 46, TCOD_BKGND_NONE,
+	//TODO: Possibly change this system to flow a little better
+	if (player.currentHP > 9) {
+		TCOD_console_print_left(NULL, 0, 46, TCOD_BKGND_NONE,
 			"  \"The Debugger\"    HP: [%c----------%c] %c%i%c/%i     Str: 4  Dex: 5  Con: 3",
 		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, TCOD_COLCTRL_2, player.currentHP, 
 			TCOD_COLCTRL_STOP, player.maxHP);
-	TCOD_console_print_left(NULL, 0, 47, TCOD_BKGND_NONE,
+	}
+	else {
+		TCOD_console_print_left(NULL, 0, 46, TCOD_BKGND_NONE,
+			"  \"The Debugger\"    HP: [%c----------%c] %c0%i%c/%i     Str: 4  Dex: 5  Con: 3",
+		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, TCOD_COLCTRL_2, player.currentHP, 
+			TCOD_COLCTRL_STOP, player.maxHP);
+	}
+	if (player.currentMP > 9) {
+		TCOD_console_print_left(NULL, 0, 47, TCOD_BKGND_NONE,
 			"                    MP: [%c----------%c] %i/%i     Int: 8  Wis: 7  Lck: 5",
 		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, player.currentMP, player.maxMP);
+	}
+	else {
+		TCOD_console_print_left(NULL, 0, 47, TCOD_BKGND_NONE,
+			"                    MP: [%c----------%c] 0%i/%i     Int: 8  Wis: 7  Lck: 5",
+		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, player.currentMP, player.maxMP);
+	}
+
 	TCOD_console_print_left(NULL, 0, 48, TCOD_BKGND_NONE,
-			"  Dlvl: %i                                      Lvl: 1          Exp: 1/4",
-		       	player.dlvl);
+			"  Dlvl: %i           Turns: %i                   Lvl: 1          Exp: 1/4",
+		       	player.dlvl, player.turns);
 	
 	for (i = 25; i < 25 + player.hpPct; i++) {
 		TCOD_console_put_char_ex(NULL, i, 46, 178, TCOD_light_red, TCOD_black);

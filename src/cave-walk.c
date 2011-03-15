@@ -34,7 +34,7 @@ cave-walk.c - this handles the random walk routines for generating caves.
 void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 	switch(dir) {
 		case 1:
-			if ((walker->y - 1) > 0)
+			if ((walker->y - 1) > 1)
 				walker->y -= 1;
 			 break;
 		case 2:
@@ -44,7 +44,7 @@ void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 		case 3:
 		case 4:
 		case 5:
-			 if ((walker->x - 1) > 0)
+			 if ((walker->x - 1) > 1)
 				 walker->x -= 1;
 			 break;
 		case 6:
@@ -59,7 +59,7 @@ void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 			 break;
 	}
 
-	if ((walker->y > 0) && (walker->y < MAP_HEIGHT - 1) && (walker->x > 0) && (walker->x < MAP_WIDTH - 1))
+	if ((walker->y > 1) && (walker->y < MAP_HEIGHT - 1) && (walker->x > 1) && (walker->x < MAP_WIDTH - 1))
 		map[walker->y][walker->x] = GROUND;
 }
 
