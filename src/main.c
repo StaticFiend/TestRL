@@ -185,11 +185,6 @@ int main(int argc, char **argv) {
 	int size, door_count = 0;
 //	int mon_num = 0;
 
-	if (argc == 1) {
-		printf("[Console] No map specified, usage: map-test mapName\n");
-		return 0;
-	}
-
 	TCOD_console_set_custom_font("data/font/testrl-font1.png", TCOD_FONT_LAYOUT_TCOD|TCOD_FONT_TYPE_GREYSCALE, 0, 0);
 	TCOD_console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, "Map System Testing for TestRL", false);
 
@@ -203,12 +198,18 @@ int main(int argc, char **argv) {
 
 	initPlayer(&player);
 
-	strcat(map_file, "data/maps/");
-	strcat(map_file, argv[1]);
-	strcat(map_file, ".map\0");
-	strcat(map_config, "data/maps/");
-	strcat(map_config, argv[1]);
-	strcat(map_config, ".cfg\0");
+	if (argc > 1) {
+		strcat(map_file, "./data/maps/");
+		strcat(map_file, argv[1]);
+		strcat(map_file, ".map\0");
+		strcat(map_config, ",/data/maps/");
+		strcat(map_config, argv[1]);
+		strcat(map_config, ".cfg\0");
+	}
+	else {
+		strcat(map_file, "data/maps/start.map");
+		strcat(map_config, "data/maps/start.cfg");
+	}
 
 #ifdef DEBUG
 	printf("[DEBUG] Testing a couple of variable sizes: %li bytes map_file, %li bytes map_config.\n", sizeof(map_file), sizeof(map_config));
