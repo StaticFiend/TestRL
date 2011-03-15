@@ -40,7 +40,6 @@ IDEAS:
 */
 
 #include "trl-main.h"
-#include "trl-combat.h"
 #include "trl-map.h"
 #include "trl-cave.h"
 #include "trl-draw.h"
