@@ -81,6 +81,51 @@ Main.h - General header file.
 #define WATER 126
 
 /*
+ * Type definitions.
+ *
+ * These just distinguish between the different types of items.
+*/
+
+#define WEAPON 0
+#define ARMOR 1
+#define SCROLL 2
+#define BOOK 3
+#define POTION 4
+#define AMMO 5
+
+/*
+ * Weapon sub-type definitions.
+*/
+
+#define DAGGER 0
+#define SWORD 1
+#define AXE 2
+#define MACE 3
+#define STAFF 4
+#define BOW 5
+//...more to come maybe
+
+/*
+ * Armor sub-type definitions.
+*/
+
+#define CLOTH 0
+#define LEATHER 1
+#define CHAIN_MAIL 2
+#define PLATE_MAIL 3
+
+/*
+ * Scroll sub-type definitions.
+*/
+
+#define S_MAPPING 0
+#define S_LIGHT 1
+#define S_SLEEP 2
+#define S_ARMOR 3
+#define S_WEAP 4
+#define S_IDENT 5
+
+/*
  * Monster state definitions
  *
  * We use these to determine AI used.and the monsters current thoughts
@@ -93,12 +138,11 @@ Main.h - General header file.
 #define ATTACKER_PLAYER		1
 #define ATTACKER_MONSTER	2
 
+/*
+ * Type definitions.
+*/
+
 int distance(int, int, int, int);
-//int trl_random(int, int);
-
-uint32_t seed;
-
-//extern char map[MAP_HEIGHT][MAP_WIDTH];
 
 typedef struct object_s {
 	uint8_t id;
@@ -135,3 +179,22 @@ typedef struct tile_s {
 	uint8_t x;
 	uint8_t y;
 } tile_t;
+
+typedef struct item_s {
+	uint8_t type;
+	uint8_t sub_type;
+	uint8_t quantity;
+
+	uint8_t effect;
+
+	bool throwable;
+
+	uint8_t min_dmg;
+	uint8_t max_dmg;
+	uint8_t plus_hit;
+	uint8_t plus_dmg;
+
+	uint8_t special_dmg;
+
+	uint8_t ac;
+} item_t;
