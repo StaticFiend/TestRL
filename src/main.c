@@ -270,6 +270,33 @@ int main(int argc, char **argv) {
 
 		TCOD_console_flush();
 
+		if (player.currentHP == 0) {
+			int fade;
+			bool dead_quit = false;
+
+			for (fade = 255; fade >= 0; fade--) {
+				TCOD_console_set_fade(fade, TCOD_black);
+				TCOD_console_flush();
+			}
+
+			TCOD_console_clear(NULL);
+			TCOD_console_set_fade(255, TCOD_black);
+			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 
+					TCOD_BKGND_NONE, "You are dead.");
+			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 1,
+					TCOD_BKGND_NONE, "Press space to quit.");
+			TCOD_console_flush();
+
+			while (dead_quit == false) {
+				key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
+
+				if (key.vk == TCODK_SPACE)
+					dead_quit = true;
+			}
+
+			break;
+		}
+
 		key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
 
 		if (key.vk == TCODK_ESCAPE)
