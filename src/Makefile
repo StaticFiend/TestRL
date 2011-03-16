@@ -16,7 +16,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) -f $(OBJECTS)
+	$(RM) $(OBJECTS)
 
 superclean:
-	$(RM) -f $(OBJECTS) $(EXECUTABLE)
+	$(RM) $(OBJECTS) $(EXECUTABLE)

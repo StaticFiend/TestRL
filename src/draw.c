@@ -25,7 +25,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-2d-draw.c - Handles drawing related functions (using 2D Arrays)
+draw.c - Handles drawing related functions (using 2D Arrays)
 */
 
 #include "trl-main.h"
@@ -68,17 +68,14 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 		for (x = 0; x < MAP_WIDTH; x++) {
 			if (TCOD_map_is_in_fov(fov_map, x, y) == true && discovered[y][x] == 0) {
 				discovered[y][x] = 1;
-//				printf("[Debug] char map[y][x] is: %i\n", (int)map[y][x]);
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
 						TCOD_color_multiply(color_map[y][x], lit), TCOD_black);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == true && discovered[y][x] == 1) {
-//				printf("[Debug] char map[y][x] is: %i\n", (int)map[y][x]);
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
 						TCOD_color_multiply(color_map[y][x], lit), TCOD_black);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == false && discovered[y][x] == 1) {
-//				printf("[Debug] char map[y][x] is: %i\n", (int)map[y][x]);
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
 						TCOD_color_multiply(color_map[y][x], darken), TCOD_black);
 			}
@@ -105,6 +102,7 @@ void draw_hud(object_t player) {
 	//Note: This section looks a little weird now that I've changed things, but believe me, changing
 	//      it over to a system where print_left prints the values separately from the HUD layout is better
 	//      since it can size itself independently without breaking the layout.
+	//TODO: Convert everything over to real stats instead of these static numbers.
 	TCOD_console_print_left(NULL, 0, 46, TCOD_BKGND_NONE,
 		"  \"The Debugger\"    HP: [%c----------%c]           Str: 4  Dex: 5  Con: 3",
 	       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP);
