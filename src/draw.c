@@ -94,6 +94,7 @@ void draw_hud(object_t player) {
 
         TCOD_console_set_color_control(TCOD_COLCTRL_1, TCOD_dark_grey, TCOD_black);
 
+	//Note: This is used just to color the players current HP depending on how much HP they have left.
 	if (player.currentHP < (player.maxHP / 2))
 		TCOD_console_set_color_control(TCOD_COLCTRL_2, TCOD_red, TCOD_black);
 	else if (player.currentHP < (player.maxHP / 1.25))
@@ -101,34 +102,23 @@ void draw_hud(object_t player) {
 	else
 		TCOD_console_set_color_control(TCOD_COLCTRL_2, TCOD_white, TCOD_black);
 
-	//This looks weird but this all does line up in game, of course because % and \ take up extra characters.
-	//TODO: Possibly change this system to flow a little better
-	if (player.currentHP > 9) {
-		TCOD_console_print_left(NULL, 0, 46, TCOD_BKGND_NONE,
-			"  \"The Debugger\"    HP: [%c----------%c] %c%i%c/%i     Str: 4  Dex: 5  Con: 3",
-		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, TCOD_COLCTRL_2, player.currentHP, 
-			TCOD_COLCTRL_STOP, player.maxHP);
-	}
-	else {
-		TCOD_console_print_left(NULL, 0, 46, TCOD_BKGND_NONE,
-			"  \"The Debugger\"    HP: [%c----------%c] %c0%i%c/%i     Str: 4  Dex: 5  Con: 3",
-		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, TCOD_COLCTRL_2, player.currentHP, 
-			TCOD_COLCTRL_STOP, player.maxHP);
-	}
-	if (player.currentMP > 9) {
-		TCOD_console_print_left(NULL, 0, 47, TCOD_BKGND_NONE,
-			"                    MP: [%c----------%c] %i/%i     Int: 8  Wis: 7  Lck: 5",
-		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, player.currentMP, player.maxMP);
-	}
-	else {
-		TCOD_console_print_left(NULL, 0, 47, TCOD_BKGND_NONE,
-			"                    MP: [%c----------%c] 0%i/%i     Int: 8  Wis: 7  Lck: 5",
-		       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP, player.currentMP, player.maxMP);
-	}
-
+	//Note: This section looks a little weird now that I've changed things, but believe me, changing
+	//      it over to a system where print_left prints the values separately from the HUD layout is better
+	//      since it can size itself independently without breaking the layout.
+	TCOD_console_print_left(NULL, 0, 46, TCOD_BKGND_NONE,
+		"  \"The Debugger\"    HP: [%c----------%c]           Str: 4  Dex: 5  Con: 3",
+	       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP);
+	TCOD_console_print_left(NULL, 0, 47, TCOD_BKGND_NONE,
+		"                    MP: [%c----------%c]           Int: 8  Wis: 7  Lck: 5",
+	       	TCOD_COLCTRL_1, TCOD_COLCTRL_STOP);
 	TCOD_console_print_left(NULL, 0, 48, TCOD_BKGND_NONE,
-			"  Dlvl: %i           Turns: %i                   Lvl: 1          Exp: 1/4",
-		       	player.dlvl, player.turns);
+		"  Dlvl:             Turns:                     Lvl: 1          Exp: 1/4");
+
+	TCOD_console_print_left(NULL, 37, 46, TCOD_BKGND_NONE, "%c%i%c/%i",
+		TCOD_COLCTRL_2, player.currentHP, TCOD_COLCTRL_STOP, player.maxHP);
+	TCOD_console_print_left(NULL, 37, 47, TCOD_BKGND_NONE, "%i/%i", player.currentMP, player.maxMP);
+	TCOD_console_print_left(NULL, 8, 48, TCOD_BKGND_NONE, "%i", player.dlvl);
+	TCOD_console_print_left(NULL, 27, 48, TCOD_BKGND_NONE, "%i", player.turns);
 	
 	for (i = 25; i < 25 + player.hpPct; i++) {
 		TCOD_console_put_char_ex(NULL, i, 46, 178, TCOD_light_red, TCOD_black);
