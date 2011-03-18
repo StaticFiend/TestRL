@@ -33,6 +33,7 @@ void draw_monster(object_t *monster, int num_of_mon, TCOD_map_t fov_map);
 void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 		TCOD_map_t fov_map, uint8_t discovered[][MAP_WIDTH]);
 void draw_hud(object_t player);
+void draw_help();
 
 /*
 void drawPlayer(object_t player);

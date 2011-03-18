@@ -367,7 +367,7 @@ int main(int argc, char **argv) {
 			TCOD_sys_save_screenshot(NULL);
 		//TODO: Do this later, full on help system ingame.
 		if (key.c == '?') {
-			draw_hud();
+			draw_help();
 			key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
 		}
 
