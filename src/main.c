@@ -366,18 +366,10 @@ int main(int argc, char **argv) {
 		if (key.vk == TCODK_BACKSPACE)
 			TCOD_sys_save_screenshot(NULL);
 		//TODO: Do this later, full on help system ingame.
-/*		if (key.c == '?') {
-			TCOD_console_print_frame(NULL, 2, 6, 42, 15, true, TCOD_BKGND_NONE, NULL);
-			TCOD_console_print_left(NULL, 3, 7, TCOD_BKGND_NONE, "TestRL Basic controls.");
-			TCOD_console_print_left(NULL, 3, 8, TCOD_BKGND_NONE, "Saving can only be done on downstairs.");
-			TCOD_console_print_left(NULL, 3, 9, TCOD_BKGND_NONE, "UP/DOWN/LEFT/RIGHT - Move player.");
-			TCOD_console_print_left(NULL, 3, 11, TCOD_BKGND_NONE,"i                  - displays inventory.");
-			TCOD_console_print_left(NULL, 3, 12, TCOD_BKGND_NONE,"g                  - lights torch.");
-			TCOD_console_print_left(NULL, 3, 13, TCOD_BKGND_NONE,"S                  - saves game.");
-
-			TCOD_console_flush();
+		if (key.c == '?') {
+			draw_hud();
 			key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
-		}*/
+		}
 
 		//Change this to DoomRL style saving.  You can only save on downstairs, and it will auto-descend.
 		//This way we don't have to store as much information, we can ignore saving discovered[] and just save
