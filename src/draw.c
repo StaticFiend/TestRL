@@ -151,12 +151,18 @@ void draw_hud(object_t player) {
 }
 
 void draw_help() {
-	TCOD_console_print_frame(NULL, 2, 6, 42, 15, true, TCOD_BKGND_NONE, NULL);
-	TCOD_console_print_left(NULL, 3, 7, TCOD_BKGND_NONE, "TestRL Basic controls.");
+	TCOD_console_print_frame(NULL, 2, 6, 42, 15, true, TCOD_BKGND_NONE, "Help");
+	TCOD_console_print_left(NULL, 3, 7, TCOD_BKGND_NONE, "TestRL Basic controls:");
 	TCOD_console_print_left(NULL, 3, 8, TCOD_BKGND_NONE, "Saving can only be done on downstairs.");
-	TCOD_console_print_left(NULL, 3, 9, TCOD_BKGND_NONE, "UP/DOWN/LEFT/RIGHT - Move player.");
-	TCOD_console_print_left(NULL, 3, 11, TCOD_BKGND_NONE,"i                  - displays inventory.");
-	TCOD_console_print_left(NULL, 3, 12, TCOD_BKGND_NONE,"g                  - lights torch.");
-	TCOD_console_print_left(NULL, 3, 13, TCOD_BKGND_NONE,"S                  - saves game.");
+
+	TCOD_console_print_left(NULL, 3, 10, TCOD_BKGND_NONE, "UP/DOWN/LEFT/RIGHT - Move player.");
+	TCOD_console_print_left(NULL, 3, 11, TCOD_BKGND_NONE, "g                  - lights torch.");
+	TCOD_console_print_left(NULL, 3, 12, TCOD_BKGND_NONE, "i                  - displays inventory.");
+	TCOD_console_print_left(NULL, 3, 13, TCOD_BKGND_NONE, "q                  - quaff potion.");
+	TCOD_console_print_left(NULL, 3, 14, TCOD_BKGND_NONE, "r                  - read scroll/book.");
+	TCOD_console_print_left(NULL, 3, 15, TCOD_BKGND_NONE, "u                  - unequip armor.");
+	TCOD_console_print_left(NULL, 3, 16, TCOD_BKGND_NONE, "w                  - wear armor.");
+	TCOD_console_print_left(NULL, 3, 19, TCOD_BKGND_NONE, "S                  - saves game.");
+	TCOD_console_print_left(NULL, 3, 20, TCOD_BKGND_NONE, "W                  - wield weapon.");
 	TCOD_console_flush();
 }

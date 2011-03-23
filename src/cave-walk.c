@@ -38,7 +38,7 @@ void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 				walker->y -= 1;
 			 break;
 		case 2:
-			 if ((walker->y + 1) < (MAP_HEIGHT - 1))
+			 if ((walker->y + 1) < (MAP_HEIGHT - 2))
 				walker->y += 1;
 			 break;
 		case 3:
@@ -50,7 +50,7 @@ void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 		case 6:
 		case 7:
 		case 8:
-			 if ((walker->x + 1) < (MAP_WIDTH - 1))
+			 if ((walker->x + 1) < (MAP_WIDTH - 2))
 				 walker->x += 1;
 			 break;
 		default:
@@ -59,7 +59,7 @@ void cave_walk(int dir, char map[][MAP_WIDTH], tile_t *walker) {
 			 break;
 	}
 
-	if ((walker->y > 1) && (walker->y < MAP_HEIGHT - 1) && (walker->x > 1) && (walker->x < MAP_WIDTH - 1))
+	if ((walker->y > 1) && (walker->y < MAP_HEIGHT - 2) && (walker->x > 1) && (walker->x < MAP_WIDTH - 2))
 		map[walker->y][walker->x] = GROUND;
 }
 

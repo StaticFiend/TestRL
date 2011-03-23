@@ -282,8 +282,10 @@ int main(int argc, char **argv) {
 			TCOD_console_clear(NULL);
 			TCOD_console_set_fade(255, TCOD_black);
 			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 
-					TCOD_BKGND_NONE, "You are dead.");
+					TCOD_BKGND_NONE, "You have died.");
 			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 1,
+					TCOD_BKGND_NONE, "Survived until dungeon level %i", player.dlvl);
+			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 3,
 					TCOD_BKGND_NONE, "Press space to quit.");
 			TCOD_console_flush();
 
