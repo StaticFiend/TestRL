@@ -162,7 +162,7 @@ void draw_help() {
 	TCOD_console_print_left(NULL, 3, 14, TCOD_BKGND_NONE, "r                  - read scroll/book.");
 	TCOD_console_print_left(NULL, 3, 15, TCOD_BKGND_NONE, "u                  - unequip armor.");
 	TCOD_console_print_left(NULL, 3, 16, TCOD_BKGND_NONE, "w                  - wear armor.");
-	TCOD_console_print_left(NULL, 3, 19, TCOD_BKGND_NONE, "S                  - saves game.");
-	TCOD_console_print_left(NULL, 3, 20, TCOD_BKGND_NONE, "W                  - wield weapon.");
+	TCOD_console_print_left(NULL, 3, 18, TCOD_BKGND_NONE, "S                  - saves game.");
+	TCOD_console_print_left(NULL, 3, 19, TCOD_BKGND_NONE, "W                  - wield weapon.");
 	TCOD_console_flush();
 }

@@ -275,17 +275,21 @@ int main(int argc, char **argv) {
 			bool dead_quit = false;
 
 			for (fade = 255; fade >= 0; fade--) {
-				TCOD_console_set_fade(fade, TCOD_black);
+				TCOD_console_set_fade(fade, TCOD_darker_red);
 				TCOD_console_flush();
 			}
 
+			TCOD_console_set_background_color(NULL, TCOD_darker_red);
 			TCOD_console_clear(NULL);
-			TCOD_console_set_fade(255, TCOD_black);
+			TCOD_console_set_fade(255, TCOD_darker_red);
+
 			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 
 					TCOD_BKGND_NONE, "You have died.");
 			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 1,
 					TCOD_BKGND_NONE, "Survived until dungeon level %i", player.dlvl);
-			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 3,
+			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 2,
+					TCOD_BKGND_NONE, "in %i turn(s).", player.turns);
+			TCOD_console_print_center(NULL, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 4,
 					TCOD_BKGND_NONE, "Press space to quit.");
 			TCOD_console_flush();
 
@@ -295,8 +299,8 @@ int main(int argc, char **argv) {
 				if (key.vk == TCODK_SPACE)
 					dead_quit = true;
 			}
-
-			break;
+			//Possibly write an obituray file here, put it in data/obituary/ __DATE__ __TIME__ .txt
+			break; //Get out of main game loop, and wrap up.
 		}
 
 		key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
