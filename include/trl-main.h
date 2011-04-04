@@ -111,8 +111,10 @@ Main.h - General header file.
 
 #define CLOTH 0
 #define LEATHER 1
-#define CHAIN_MAIL 2
-#define PLATE_MAIL 3
+#define STUDDED_LEATHER 2
+#define CHAIN_MAIL 3
+#define PLATE_MAIL 4
+//...maybe add a few more here, like studded leather and another type of metal.
 
 /*
  * Scroll sub-type definitions.
@@ -124,6 +126,8 @@ Main.h - General header file.
 #define S_ARMOR 3
 #define S_WEAP 4
 #define S_IDENT 5
+//Definitely going to be more here.
+//...the rest of the item sub-types to come!
 
 /*
  * Monster state definitions
@@ -143,10 +147,30 @@ Main.h - General header file.
 */
 
 int distance(int, int, int, int);
+void game_loop(bool);
+
+typedef struct item_s {
+	uint8_t type;
+	uint8_t sub_type;
+	uint8_t quantity;
+
+	uint8_t effect;
+
+	bool throwable;
+
+	uint8_t min_dmg;
+	uint8_t max_dmg;
+	uint8_t plus_hit;
+	uint8_t plus_dmg;
+
+	uint8_t special_dmg;
+
+	uint8_t ac;
+
+	bool currently_equipped;
+} item_t;
 
 typedef struct object_s {
-	uint8_t id;
-
 	uint8_t x;
 	uint8_t y;
 
@@ -171,6 +195,7 @@ typedef struct object_s {
 	uint8_t state;
 
 	uint32_t turns;
+	//item_t inventory[MAX_INVENTORY];
 } object_t;
 
 typedef struct tile_s {
@@ -180,21 +205,4 @@ typedef struct tile_s {
 	uint8_t y;
 } tile_t;
 
-typedef struct item_s {
-	uint8_t type;
-	uint8_t sub_type;
-	uint8_t quantity;
 
-	uint8_t effect;
-
-	bool throwable;
-
-	uint8_t min_dmg;
-	uint8_t max_dmg;
-	uint8_t plus_hit;
-	uint8_t plus_dmg;
-
-	uint8_t special_dmg;
-
-	uint8_t ac;
-} item_t;

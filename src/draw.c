@@ -151,7 +151,7 @@ void draw_hud(object_t player) {
 }
 
 void draw_help() {
-	TCOD_console_print_frame(NULL, 2, 6, 42, 15, true, TCOD_BKGND_NONE, "Help");
+	TCOD_console_print_frame(NULL, 2, 6, 45, 18, true, TCOD_BKGND_NONE, "Help");
 	TCOD_console_print_left(NULL, 3, 7, TCOD_BKGND_NONE, "TestRL Basic controls:");
 	TCOD_console_print_left(NULL, 3, 8, TCOD_BKGND_NONE, "Saving can only be done on downstairs.");
 
@@ -164,5 +164,7 @@ void draw_help() {
 	TCOD_console_print_left(NULL, 3, 16, TCOD_BKGND_NONE, "w                  - wear armor.");
 	TCOD_console_print_left(NULL, 3, 18, TCOD_BKGND_NONE, "S                  - saves game.");
 	TCOD_console_print_left(NULL, 3, 19, TCOD_BKGND_NONE, "W                  - wield weapon.");
+	TCOD_console_print_left(NULL, 3, 21, TCOD_BKGND_NONE, ">                  - go down stairs.");
+	TCOD_console_print_left(NULL, 3, 22, TCOD_BKGND_NONE, "?                  - displays this screen.");
 	TCOD_console_flush();
 }
