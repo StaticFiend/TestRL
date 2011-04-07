@@ -66,6 +66,9 @@ void initPlayer(object_t *player) {
 	}
 }
 
+//TODO: Separate this into maybe item.c
+//void init_items(item_t *items);
+
 void pickup_item(item_t item, object_t *player) {
 	int i, open_slot = 666;
 
@@ -94,11 +97,13 @@ void game_loop(bool save_detected) {
 	uint8_t discovered[MAP_HEIGHT][MAP_WIDTH];
 	uint8_t fov_formula;
 	uint8_t lit_cave;
+//	uint8_t loot_count;
 
 	object_t player;
 //	object_t *monster;
 	tile_t *door;
 	tile_t stairs;
+//	item_t *random_loot;
 
 	char map[MAP_HEIGHT][MAP_WIDTH];
 //	char *saveChar;
@@ -127,11 +132,16 @@ void game_loop(bool save_detected) {
 		}
 	}
 
+//	loot_count = TCOD_random_get_int(NULL, 0, 25);
+//	random_loot = malloc(sizeof(item_t) * loot_count);
+
 	door = malloc(sizeof(tile_t) * door_count);
 	load_map_from_file(map_file, map, map_colors, &player, &stairs, door);
 	load_map_config(map_config, &player.radius, &fov_formula);
 	tcod_map = create_tcod_map(map, discovered);
+
 //	createMonster(monster, mon_num, tcod_map);
+//	init_items(random_loot, map);
 
 	while (done == false) {
 		//player.y - 5 is necessary here because the drawn map is shifted 5 units down,
@@ -144,6 +154,7 @@ void game_loop(bool save_detected) {
 		//sticks on the screen at all times.
 		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "                                    ");
 //		draw_monster(monster, mon_num, tcod_map);
+//		draw_items(random_loot, tcod_map);
 		draw_player(player);
 
 		TCOD_console_flush();
