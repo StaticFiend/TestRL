@@ -36,6 +36,8 @@ game.c - Main game loop and misc game related functions.
 
 //FIXME: Make this better (class system, stats, etc)
 void initPlayer(object_t *player) {
+	int i;
+
 	player->symbol = 64;
 	player->x = 0;
 	player->y = 0;
@@ -58,6 +60,28 @@ void initPlayer(object_t *player) {
 	player->torch_lit = false;
 	player->turns = 0;
 	player->torch_life = 80;
+
+	for (i = 0; i < MAX_INVENTORY; i++) {
+		player->inventory[i].type = EMPTY_SLOT;
+	}
+}
+
+void pickup_item(item_t item, object_t *player) {
+	int i, open_slot = 666;
+
+	for (i = 0; i < MAX_INVENTORY; i++) {
+		if (player->inventory[i].type == EMPTY_SLOT) {
+			open_slot = i;
+		}
+	}
+
+	if (open_slot == 666) {
+		printf("[Console] No room in inventory.\n");
+		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Your pack is completely full!");
+	}
+	else {
+		player->inventory[open_slot] = item; //I believe this should be fine, since there's no pointers involved.
+	}
 }
 
 void game_loop(bool save_detected) {

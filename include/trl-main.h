@@ -86,12 +86,13 @@ Main.h - General header file.
  * These just distinguish between the different types of items.
 */
 
-#define WEAPON 0
-#define ARMOR 1
-#define SCROLL 2
-#define BOOK 3
-#define POTION 4
-#define AMMO 5
+#define EMPTY_SLOT 0
+#define WEAPON 1
+#define ARMOR 2
+#define SCROLL 3
+#define BOOK 4
+#define POTION 5
+#define AMMO 6
 
 /*
  * Weapon sub-type definitions.
@@ -195,7 +196,8 @@ typedef struct object_s {
 	uint8_t state;
 
 	uint32_t turns;
-	//item_t inventory[MAX_INVENTORY];
+
+	item_t inventory[MAX_INVENTORY];
 } object_t;
 
 typedef struct tile_s {
