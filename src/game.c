@@ -67,7 +67,7 @@ void initPlayer(object_t *player) {
 }
 
 //TODO: Separate this into maybe item.c
-void init_items(item_t items[MAX_INVENTORY], int item_count, TCOD_map_t tcod_map) {
+void init_items(item_t items[MAX_RANDOM_ITEMS], int item_count, TCOD_map_t tcod_map) {
 	int i;
 
 	for (i = 0; i < item_count; i++) {
@@ -121,7 +121,7 @@ void game_loop(bool save_detected) {
 //	object_t *monster;
 	tile_t *door;
 	tile_t stairs;
-	item_t random_loot[MAX_INVENTORY];
+	item_t random_loot[MAX_RANDOM_ITEMS];
 
 	char map[MAP_HEIGHT][MAP_WIDTH];
 //	char *saveChar;
@@ -159,7 +159,7 @@ void game_loop(bool save_detected) {
 		}
 	}
 
-	loot_count = TCOD_random_get_int(NULL, 1, MAX_INVENTORY);
+	loot_count = TCOD_random_get_int(NULL, 1, MAX_RANDOM_ITEMS);
 
 #ifdef DEBUG
 	printf("[Debug] Loot count: %i\n", loot_count);
@@ -363,7 +363,7 @@ void game_loop(bool save_detected) {
 				player.turns++;
 
 				//Add new items.
-				loot_count = TCOD_random_get_int(NULL, 0, MAX_INVENTORY);
+				loot_count = TCOD_random_get_int(NULL, 0, MAX_RANDOM_ITEMS);
 				init_items(random_loot, loot_count, tcod_map);
 
 				if (lit_cave == 1) {

@@ -168,7 +168,7 @@ void draw_help() {
 	TCOD_console_flush();
 }
 
-void draw_items(item_t loot[MAX_INVENTORY], int loot_count, TCOD_map_t tcod_map) {
+void draw_items(item_t loot[MAX_RANDOM_ITEMS], int loot_count, TCOD_map_t tcod_map) {
 	TCOD_color_t darken = {127, 127, 127};
 
 	int i;

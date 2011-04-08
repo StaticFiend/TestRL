@@ -34,4 +34,4 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 		TCOD_map_t fov_map, uint8_t discovered[][MAP_WIDTH]);
 void draw_hud(object_t player);
 void draw_help();
-void draw_items(item_t loot[MAX_INVENTORY], int loot_count, TCOD_map_t tcod_map);
+void draw_items(item_t loot[MAX_RANDOM_ITEMS], int loot_count, TCOD_map_t tcod_map);
