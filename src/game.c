@@ -74,9 +74,9 @@ void init_items(item_t items[MAX_INVENTORY], int item_count, TCOD_map_t tcod_map
 		do {
 			items[i].x = TCOD_random_get_int(NULL, 0, MAP_WIDTH);
 			items[i].y = TCOD_random_get_int(NULL, 0, MAP_HEIGHT);
-		} while (TCOD_map_is_walkable(tcod_map, items[i].x, items[i].y));
+		} while (TCOD_map_is_walkable(tcod_map, items[i].x, items[i].y) == false);
 
-		items[i].y += 5;
+//		items[i].y += 5;
 		items[i].type = TCOD_random_get_int(NULL, 1, 6);
 #ifdef DEBUG
 		printf("[Debug] item #%i type: %i\n", i, items[i].type);

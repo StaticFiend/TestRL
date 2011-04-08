@@ -44,8 +44,6 @@ Main.h - General header file.
  * more bloat by defining a ton of new integers.
 */
 
-#define DEBUG
-
 #define MAP_WIDTH 80
 #define MAP_HEIGHT 40
 #define SCREEN_WIDTH 80
