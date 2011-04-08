@@ -60,7 +60,6 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 		TCOD_map_t fov_map, uint8_t discovered[][MAP_WIDTH]) {
 
 	TCOD_color_t darken = {127, 127, 127};
-	TCOD_color_t lit = {255, 255, 255};
 
 	int x, y;
 
@@ -69,11 +68,11 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 			if (TCOD_map_is_in_fov(fov_map, x, y) == true && discovered[y][x] == 0) {
 				discovered[y][x] = 1;
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
-						TCOD_color_multiply(color_map[y][x], lit), TCOD_black);
+						color_map[y][x], TCOD_black);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == true && discovered[y][x] == 1) {
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
-						TCOD_color_multiply(color_map[y][x], lit), TCOD_black);
+						color_map[y][x], TCOD_black);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == false && discovered[y][x] == 1) {
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
@@ -170,12 +169,16 @@ void draw_help() {
 }
 
 void draw_items(item_t loot[MAX_INVENTORY], int loot_count, TCOD_map_t tcod_map) {
+	TCOD_color_t darken = {127, 127, 127};
+
 	int i;
 
 	for (i = 0; i < loot_count; i++) {
 		if (loot[i].x == 99)
 			continue;
 		else if (TCOD_map_is_in_fov(tcod_map, loot[i].x, loot[i].y) == true) {
+			loot[i].discovered = true;
+
 			switch (loot[i].type) {
 				case WEAPON:
 					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y + 5, 40,
@@ -207,5 +210,38 @@ void draw_items(item_t loot[MAX_INVENTORY], int loot_count, TCOD_map_t tcod_map)
 					break;
 			}
 		}
+		else if (TCOD_map_is_in_fov(tcod_map, loot[i].x, loot[i].y) == false && loot[i].discovered == true) {
+			switch (loot[i].type) {
+				case WEAPON:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y + 5, 40,
+							TCOD_color_multiply(TCOD_light_blue, darken), TCOD_black);
+					break;
+				case ARMOR:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y + 5, 91,
+							TCOD_color_multiply(TCOD_dark_yellow, darken), TCOD_black);
+					break;
+				case SCROLL:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y + 5, 63,
+							TCOD_color_multiply(TCOD_white, darken), TCOD_black);
+					break;
+				case BOOK:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y + 5, 43,
+							TCOD_color_multiply(TCOD_desaturated_green, darken), TCOD_black);
+					break;
+				case POTION:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y + 5, 33,
+							TCOD_color_multiply(TCOD_desaturated_blue, darken), TCOD_black);
+					break;
+				case AMMO:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y + 5, 42,
+							TCOD_color_multiply(TCOD_white, darken), TCOD_black);
+					break;
+				default:
+					//???????
+					printf("[Console] ERROR: Unknown item type, what the hell did you do?!?!?!\n");
+					break;
+			}
+		}
+
 	}
 }

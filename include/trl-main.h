@@ -171,6 +171,7 @@ typedef struct item_s {
 	uint8_t ac;
 
 	bool currently_equipped;
+	bool discovered;
 } item_t;
 
 typedef struct object_s {

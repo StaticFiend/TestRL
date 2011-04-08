@@ -78,6 +78,7 @@ void init_items(item_t items[MAX_INVENTORY], int item_count, TCOD_map_t tcod_map
 
 //		items[i].y += 5;
 		items[i].type = TCOD_random_get_int(NULL, 1, 6);
+		items[i].discovered = false;
 #ifdef DEBUG
 		printf("[Debug] item #%i type: %i\n", i, items[i].type);
 #endif
