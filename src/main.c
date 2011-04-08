@@ -159,9 +159,9 @@ int main(/*int argc, char **argv*/) {
 //		saveChar = (char *)malloc((sizeof(char) * size) + 1);
 
 //		fread(saveChar, 1, size, save_file);
-#ifdef DEBUG
-		printf("[DEBUG] saveChar: %s\n", saveChar);
-#endif
+//#ifdef DEBUG
+//		printf("[DEBUG] saveChar: %s\n", saveChar);
+//#endif
 
 		//tokenized stuff beep boop beep
 		//FIXME: Figure out how to load this stuff properly, strtok wants everything

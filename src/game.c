@@ -67,9 +67,24 @@ void initPlayer(object_t *player) {
 }
 
 //TODO: Separate this into maybe item.c
-//void init_items(item_t *items);
+void init_items(item_t items[MAX_INVENTORY], int item_count, TCOD_map_t tcod_map) {
+	int i;
 
-void pickup_item(item_t item, object_t *player) {
+	for (i = 0; i < item_count; i++) {
+		do {
+			items[i].x = TCOD_random_get_int(NULL, 0, MAP_WIDTH);
+			items[i].y = TCOD_random_get_int(NULL, 0, MAP_HEIGHT);
+		} while (TCOD_map_is_walkable(tcod_map, items[i].x, items[i].y));
+
+		items[i].y += 5;
+		items[i].type = TCOD_random_get_int(NULL, 1, 6);
+#ifdef DEBUG
+		printf("[Debug] item #%i type: %i\n", i, items[i].type);
+#endif
+	}
+}
+
+void pickup_item(item_t *item, object_t *player) {
 	int i, open_slot = 666;
 
 	for (i = 0; i < MAX_INVENTORY; i++) {
@@ -83,7 +98,8 @@ void pickup_item(item_t item, object_t *player) {
 		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "Your pack is completely full!");
 	}
 	else {
-		player->inventory[open_slot] = item; //I believe this should be fine, since there's no pointers involved.
+		player->inventory[open_slot] = *item; //I believe this should be fine, since there's no pointers involved.
+		item->x = 99;
 	}
 }
 
@@ -97,13 +113,14 @@ void game_loop(bool save_detected) {
 	uint8_t discovered[MAP_HEIGHT][MAP_WIDTH];
 	uint8_t fov_formula;
 	uint8_t lit_cave;
-//	uint8_t loot_count;
+
+	uint8_t loot_count;
 
 	object_t player;
 //	object_t *monster;
 	tile_t *door;
 	tile_t stairs;
-//	item_t *random_loot;
+	item_t random_loot[MAX_INVENTORY];
 
 	char map[MAP_HEIGHT][MAP_WIDTH];
 //	char *saveChar;
@@ -114,9 +131,9 @@ void game_loop(bool save_detected) {
 	
 	//	mon_num = TCOD_random_get_int(NULL, 0, MAX_MONSTERS);
 
-#ifdef DEBUG
-	printf("[DEBUG] mon_num is now set to : %i\n", mon_num);
-#endif
+//#ifdef DEBUG
+//	printf("[DEBUG] mon_num is now set to : %i\n", mon_num);
+//#endif
 
 //	monster = malloc(sizeof(object_t) * mon_num);
 
@@ -131,9 +148,21 @@ void game_loop(bool save_detected) {
 			return;
 		}
 	}
+	else {
+		strcat(map_file, "data/maps/doom.map");
+		strcat(map_config, "data/maps/doom.cfg");
+		door_count = count_doors(map_file);
+		if (door_count == -1) {
+			printf("[Console] FATAL ERROR: Unable to find specified map: %s\n", map_file);
+			return;
+		}
+	}
 
-//	loot_count = TCOD_random_get_int(NULL, 0, 25);
-//	random_loot = malloc(sizeof(item_t) * loot_count);
+	loot_count = TCOD_random_get_int(NULL, 1, MAX_INVENTORY);
+
+#ifdef DEBUG
+	printf("[Debug] Loot count: %i\n", loot_count);
+#endif
 
 	door = malloc(sizeof(tile_t) * door_count);
 	load_map_from_file(map_file, map, map_colors, &player, &stairs, door);
@@ -141,7 +170,7 @@ void game_loop(bool save_detected) {
 	tcod_map = create_tcod_map(map, discovered);
 
 //	createMonster(monster, mon_num, tcod_map);
-//	init_items(random_loot, map);
+	init_items(random_loot, loot_count, tcod_map);
 
 	while (done == false) {
 		//player.y - 5 is necessary here because the drawn map is shifted 5 units down,
@@ -154,7 +183,7 @@ void game_loop(bool save_detected) {
 		//sticks on the screen at all times.
 		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "                                    ");
 //		draw_monster(monster, mon_num, tcod_map);
-//		draw_items(random_loot, tcod_map);
+		draw_items(random_loot, loot_count, tcod_map);
 		draw_player(player);
 
 		TCOD_console_flush();
@@ -331,6 +360,10 @@ void game_loop(bool save_detected) {
 				//if lit_cave < (dlvl / 1.5)
 				lit_cave = TCOD_random_get_int(NULL, 1, 3);
 				player.turns++;
+
+				//Add new items.
+				loot_count = TCOD_random_get_int(NULL, 0, MAX_INVENTORY);
+				init_items(random_loot, loot_count, tcod_map);
 
 				if (lit_cave == 1) {
 					player.radius = 0;

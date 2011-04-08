@@ -34,10 +34,4 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 		TCOD_map_t fov_map, uint8_t discovered[][MAP_WIDTH]);
 void draw_hud(object_t player);
 void draw_help();
-
-/*
-void drawPlayer(object_t player);
-//void drawMonster(object_t monster[], int array_size);
-void drawMonsters(object_t *monster, int mon_num, TCOD_map_t fov_map);
-void drawMap(char map[MAP_HEIGHT * MAP_WIDTH], TCOD_color_t map_colors[MAP_HEIGHT * MAP_WIDTH], TCOD_map_t fov_map, uint8_t discovered[MAP_HEIGHT * MAP_WIDTH]);
-void drawHud(object_t player);*/
+void draw_items(item_t loot[MAX_INVENTORY], int loot_count, TCOD_map_t tcod_map);

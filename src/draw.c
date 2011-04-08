@@ -168,3 +168,44 @@ void draw_help() {
 	TCOD_console_print_left(NULL, 3, 22, TCOD_BKGND_NONE, "?                  - displays this screen.");
 	TCOD_console_flush();
 }
+
+void draw_items(item_t loot[MAX_INVENTORY], int loot_count, TCOD_map_t tcod_map) {
+	int i;
+
+	for (i = 0; i < loot_count; i++) {
+		if (loot[i].x == 99)
+			continue;
+		else if (TCOD_map_is_in_fov(tcod_map, loot[i].x, loot[i].y - 5) == true) {
+			switch (loot[i].type) {
+				case WEAPON:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y, 40,
+							TCOD_light_blue, TCOD_black);
+					break;
+				case ARMOR:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y, 91,
+							TCOD_dark_yellow, TCOD_black);
+					break;
+				case SCROLL:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y, 63,
+							TCOD_white, TCOD_black);
+					break;
+				case BOOK:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y, 43,
+							TCOD_desaturated_green, TCOD_black);
+					break;
+				case POTION:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y, 33,
+							TCOD_desaturated_blue, TCOD_black);
+					break;
+				case AMMO:
+					TCOD_console_put_char_ex(NULL, loot[i].x, loot[i].y, 42,
+							TCOD_white, TCOD_black);
+					break;
+				default:
+					//???????
+					printf("[Console] ERROR: Unknown item type, what the hell did you do?!?!?!\n");
+					break;
+			}
+		}
+	}
+}

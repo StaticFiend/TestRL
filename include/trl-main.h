@@ -44,6 +44,8 @@ Main.h - General header file.
  * more bloat by defining a ton of new integers.
 */
 
+#define DEBUG
+
 #define MAP_WIDTH 80
 #define MAP_HEIGHT 40
 #define SCREEN_WIDTH 80
@@ -151,6 +153,8 @@ int distance(int, int, int, int);
 void game_loop(bool);
 
 typedef struct item_s {
+	uint8_t x, y;
+
 	uint8_t type;
 	uint8_t sub_type;
 	uint8_t quantity;
