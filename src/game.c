@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 game.c - Main game loop and misc game related functions.
 */
 
+#include <time.h>
 #include "trl-main.h"
 #include "trl-map.h"
 #include "trl-cave.h"
@@ -180,8 +181,7 @@ void game_loop(bool save_detected) {
 
 		draw_map(map, map_colors, tcod_map, discovered);
 		draw_hud(player);
-		//Kind of a temporary bandaid because there's no message system, thus "open in what direction?"
-		//sticks on the screen at all times.
+		//FIXME: This is kind of a hack to clear the top area, only an issue because there's no messaging system.
 		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "                                    ");
 //		draw_monster(monster, mon_num, tcod_map);
 		draw_items(random_loot, loot_count, tcod_map);
@@ -218,12 +218,21 @@ void game_loop(bool save_detected) {
 				if (key.vk == TCODK_SPACE)
 					dead_quit = true;
 			}
-			//Possibly write an obituray file here, put it in data/obituary/ __DATE__ __TIME__ .txt
-			//char obitFileName[256];
-			//FILE *obitFile;
+			//Possibly write an obituray file here, put it in data/obituary/DATE - TIME.txt
+			char obitFileName[256];
+//			FILE *obitFile;
 
-			//strcat(obitFileName, "obituary.txt");
-			//__DATE__ and __TIME__ are compile-time specific thinking on it, so that won't work
+			struct tm *cur_time;
+			time_t temp_time;
+
+			temp_time = time(NULL);
+			cur_time = localtime(&temp_time);
+
+			strftime(obitFileName, 256, "%d%m%y_%I%M-obituary.txt", cur_time);
+			printf("[Debug] Testing obituary filename: %s.\n", obitFileName);
+
+			//Save a file here with said filename and information about the player, maybe the map and all that.
+			//Otherwise this WORKS!!!
 
 			break; //Get out of main game loop, and wrap up.
 		}

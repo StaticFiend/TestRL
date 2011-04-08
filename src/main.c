@@ -77,25 +77,13 @@ IDEAS:
 int distance(int x1, int y1, int x2, int y2) {
 	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
-/*
-int trl_random(int low, int high) {
-	static TCOD_random_t rnd = TCOD_random_new_from_seed(TCOD_RNG_CMWC, seed);
-
-	return TCOD_random_get_int(rnd, low, high);
-}
-*/
 
 //FIXME: Make this better.
 //FIXME: Move this to game.c or somewhere else.
 void createMonster(object_t *monster, int mon_num, TCOD_map_t map) {
-//	monster->x = ;
-//	monster->y = 20;
 	int i;
 
-	//printf("[DEBUG] Called createMonster...\n");
-
 	for (i = 0; i < mon_num; i++) {
-		//printf("[DEBUG] In for loop...\n");
 		do {
 			monster[i].x = TCOD_random_get_int(NULL, 0, 79);
 			monster[i].y = TCOD_random_get_int(NULL, 0, 39);
@@ -121,18 +109,9 @@ void createMonster(object_t *monster, int mon_num, TCOD_map_t map) {
 		monster[i].state = STATE_NON_AGGRESSIVE;
 		monster[i].symbol = 107;
 	}
-	//printf("[DEBUG] Exiting function...\n");
 }
 
-//FIXME: Might need to implement this at some point for better string parsing.
-/*
-void inspectString (char *test) {
-	//Take a string, analyze it, 
-}
-*/
-
-//TODO: Move all of this code into its own file labelled game.c
-//TODO: Also make a title screen and all that good stuff.
+//TODO: Make a title screen and all that good stuff.
 int main(/*int argc, char **argv*/) {
 	FILE *save_file;
 	bool save_detected = false;
