@@ -7,7 +7,10 @@ Should work fine under any flavor of Linux, and should work perfectly fine under
 but I have yet to test that as of 3/1/2011.  If you need to compile this for 32-bit the 32-bit library is also included.
 
 Windows users, to compile you'll need MinGW and the libtcod library from the website above.
-You'll need gcc and make.
+You will need gcc and make.
+
+As for OSX users I do not believe there is any builds of 1.5.0, however if you find one and get a build working please
+let me know immidiately.
 
 Current Progress:
 [2011/3/14]
