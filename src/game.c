@@ -69,16 +69,55 @@ void initPlayer(object_t *player) {
 
 //TODO: Separate this into maybe item.c
 void init_items(item_t items[MAX_RANDOM_ITEMS], int item_count, TCOD_map_t tcod_map) {
-	int i;
+	int i, random_type;
 
 	for (i = 0; i < item_count; i++) {
 		do {
 			items[i].x = TCOD_random_get_int(NULL, 0, MAP_WIDTH);
 			items[i].y = TCOD_random_get_int(NULL, 0, MAP_HEIGHT);
 		} while (TCOD_map_is_walkable(tcod_map, items[i].x, items[i].y) == false);
+		//I've got bigger ideas for this, here's my plan:
+		//	Make it so certain items appear more often than others
+		//	Certain subtypes are more likely.
+		//	Possibly more to come from this.
+//		items[i].type = TCOD_random_get_int(NULL, 1, 6);
+		random_type = TCOD_random_get_int(NULL, 1, 15);
 
-//		items[i].y += 5;
-		items[i].type = TCOD_random_get_int(NULL, 1, 6);
+		//These numbers may be tweaked at some point, since a 6% (nearly 7%) chance of a book seems low.
+		//FIXME: printf in the default line was causing gcc to think this switch was a trigraph.
+		switch(random_type) {
+			case 1:
+			case 2:
+				items[i].type = WEAPON;
+				break;
+			case 3:
+			case 4:
+				items[i].type = ARMOR;
+				break;
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				items[i].type = SCROLL;
+				break;
+			case 9:
+				items[i].type = BOOK;
+				break;
+			case 10:
+			case 11:
+			case 12:
+			case 13:
+				items[i].type = POTION;
+				break;
+			case 14:
+			case 15:
+				items[i].type = AMMO;
+				break;
+			default:
+//				printf("[Console] Invalid random number in init_item (??????)\n");
+				break;
+		}
+
 		items[i].discovered = false;
 #ifdef DEBUG
 		printf("[Debug] item #%i type: %i\n", i, items[i].type);
@@ -86,12 +125,14 @@ void init_items(item_t items[MAX_RANDOM_ITEMS], int item_count, TCOD_map_t tcod_
 	}
 }
 
+//THIS WORKS!!!!!!!
 void pickup_item(item_t *item, object_t *player) {
 	int i, open_slot = 666;
 
 	for (i = 0; i < MAX_INVENTORY; i++) {
 		if (player->inventory[i].type == EMPTY_SLOT) {
 			open_slot = i;
+			break;
 		}
 	}
 
@@ -130,6 +171,7 @@ void game_loop(bool save_detected) {
 	char map_file[256] = "", map_config[256] = "";
 
 	int door_count = 0;
+	int i;
 	
 	//	mon_num = TCOD_random_get_int(NULL, 0, MAX_MONSTERS);
 
@@ -302,6 +344,18 @@ void game_loop(bool save_detected) {
 				use_door(LEFT, player, door, &tcod_map, map, door_count, 0);
 			
 			player.turns++;
+		}
+		if (key.c == ',') {
+			for (i = 0; i < loot_count; i++) {
+				if ((player.y - 5 == random_loot[i].y) && (player.x == random_loot[i].x)) 
+					pickup_item(&random_loot[i], &player);
+			}
+		}
+		if (key.c == 'i') {
+			//Just doing a check to see if picking up items worked.
+			for (i = 0; i < MAX_INVENTORY; i++) {
+				printf("[Console] Inventory Slot %i item ID number %i\n", i, player.inventory[i].type);
+			}
 		}
 		if (key.vk == TCODK_BACKSPACE)
 			TCOD_sys_save_screenshot(NULL);
