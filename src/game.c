@@ -84,7 +84,6 @@ void init_items(item_t items[MAX_RANDOM_ITEMS], int item_count, TCOD_map_t tcod_
 		random_type = TCOD_random_get_int(NULL, 1, 15);
 
 		//These numbers may be tweaked at some point, since a 6% (nearly 7%) chance of a book seems low.
-		//FIXME: printf in the default line was causing gcc to think this switch was a trigraph.
 		switch(random_type) {
 			case 1:
 			case 2:
@@ -114,7 +113,7 @@ void init_items(item_t items[MAX_RANDOM_ITEMS], int item_count, TCOD_map_t tcod_
 				items[i].type = AMMO;
 				break;
 			default:
-//				printf("[Console] Invalid random number in init_item (??????)\n");
+				printf("[Console] Invalid random number in init_item, wtf?\n");
 				break;
 		}
 
@@ -345,16 +344,21 @@ void game_loop(bool save_detected) {
 			
 			player.turns++;
 		}
+		//TODO: This area should be changed slightly, basically I want it to allow you to pick up what items
+		//	you want if there are multiple on the same square.
 		if (key.c == ',') {
 			for (i = 0; i < loot_count; i++) {
-				if ((player.y - 5 == random_loot[i].y) && (player.x == random_loot[i].x)) 
+				if ((player.y - 5 == random_loot[i].y) && (player.x == random_loot[i].x)) {
 					pickup_item(&random_loot[i], &player);
+					printf("[Console] Player picked up an item!\n");
+					break;
+				}
 			}
 		}
 		if (key.c == 'i') {
 			//Just doing a check to see if picking up items worked.
 			for (i = 0; i < MAX_INVENTORY; i++) {
-				printf("[Console] Inventory Slot %i item ID number %i\n", i, player.inventory[i].type);
+				printf("[Console] Inventory Slot %i item ID number %i\n", i + 1, player.inventory[i].type);
 			}
 		}
 		if (key.vk == TCODK_BACKSPACE)

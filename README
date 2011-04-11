@@ -13,6 +13,12 @@ As for OSX users I do not believe there is any builds of 1.5.0, however if you f
 let me know immidiately.
 
 Current Progress:
+[2011/4/11]
+
+*	Added items to the game.
+*	Inventory system working.
+*	Groundwork added for more complex items.
+
 [2011/3/14]
 
 *	Added a light system for the player in dark caves.
