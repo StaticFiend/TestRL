@@ -84,38 +84,18 @@ void init_items(item_t items[MAX_RANDOM_ITEMS], int item_count, TCOD_map_t tcod_
 		random_type = TCOD_random_get_int(NULL, 1, 15);
 
 		//These numbers may be tweaked at some point, since a 6% (nearly 7%) chance of a book seems low.
-		switch(random_type) {
-			case 1:
-			case 2:
-				items[i].type = WEAPON;
-				break;
-			case 3:
-			case 4:
-				items[i].type = ARMOR;
-				break;
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-				items[i].type = SCROLL;
-				break;
-			case 9:
-				items[i].type = BOOK;
-				break;
-			case 10:
-			case 11:
-			case 12:
-			case 13:
-				items[i].type = POTION;
-				break;
-			case 14:
-			case 15:
-				items[i].type = AMMO;
-				break;
-			default:
-				printf("[Console] Invalid random number in init_item, wtf?\n");
-				break;
-		}
+		if (random_type >= 1 && random_type <= 2)
+			items[i].type = WEAPON;
+		else if (random_type >= 3 && random_type <= 4)
+			items[i].type = ARMOR;
+		else if (random_type >= 5 && random_type <= 8)
+			items[i].type = SCROLL;
+		else if (random_type == 9)
+			items[i].type = BOOK;
+		else if (random_type >= 10 && random_type <= 3)
+			items[i].type = POTION;
+		else
+			items[i].type = AMMO;
 
 		items[i].discovered = false;
 #ifdef DEBUG

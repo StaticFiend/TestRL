@@ -51,8 +51,8 @@ Main.h - General header file.
 
 #define MAX_MONSTERS 32
 #define MAX_DLVL 100
-#define MAX_INVENTORY 50
-#define MAX_RANDOM_ITEMS 10
+#define MAX_INVENTORY 24
+#define MAX_RANDOM_ITEMS 5
 
 #define MIN_MONSTERS 15
 #define MIN_DLVL 60
