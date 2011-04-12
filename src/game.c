@@ -92,7 +92,7 @@ void init_items(item_t items[MAX_RANDOM_ITEMS], int item_count, TCOD_map_t tcod_
 			items[i].type = SCROLL;
 		else if (random_type == 9)
 			items[i].type = BOOK;
-		else if (random_type >= 10 && random_type <= 3)
+		else if (random_type >= 10 && random_type <= 13)
 			items[i].type = POTION;
 		else
 			items[i].type = AMMO;
