@@ -202,6 +202,7 @@ void game_loop(bool save_detected) {
 
 		draw_map(map, map_colors, tcod_map, discovered);
 		draw_hud(player);
+//		animate_tile(map, map_colors, WATER);
 		//FIXME: This is kind of a hack to clear the top area, only an issue because there's no messaging system.
 		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "                                    ");
 //		draw_monster(monster, mon_num, tcod_map);
@@ -261,7 +262,11 @@ void game_loop(bool save_detected) {
 		//Apr 13, 2011 - this is a big change, because this means the game no longer waits purely for a keypress
 		//               and instead just keeps going, this is where a turn system needs to be implemented before
 		//               I add monsters back.
-		key = TCOD_console_check_for_keypress(TCOD_KEY_PRESSED);
+
+		//Apr 14, 2011 - tried check_for_keypress for a while but it slows the game down considerably, I'll either
+		//               need to figure out how to make the entire game much faster or simply just keep wait
+		//               which works fine as is.
+		key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
 
 		if (key.vk == TCODK_ESCAPE)
 			break;
@@ -431,6 +436,7 @@ void game_loop(bool save_detected) {
 				}
 		}
 
+		//Pressing the button enough will drain your torch, perhaps change this?
 		if (player.torch_lit == true)
 			player.torch_life--;
 		if (player.torch_lit == true && player.torch_life == 0) {

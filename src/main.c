@@ -118,7 +118,8 @@ int main(/*int argc, char **argv*/) {
 
 	TCOD_console_set_custom_font("data/font/testrl-font1.png", TCOD_FONT_LAYOUT_TCOD|TCOD_FONT_TYPE_GREYSCALE, 0, 0);
 	TCOD_console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, "TestRL - Pre-alpha", false);
-	TCOD_sys_set_fps(30);
+//	TCOD_sys_set_fps(25);
+	TCOD_console_disable_keyboard_repeat();
 
 	save_file = fopen("current_game", "r");
 

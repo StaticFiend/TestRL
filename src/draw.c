@@ -30,6 +30,25 @@ draw.c - Handles drawing related functions (using 2D Arrays)
 
 #include "trl-main.h"
 
+//Implement this system similar to creating a map in map.c from a file, should be simple.
+void animate_tile(char map[][MAP_WIDTH], TCOD_color_t colors[][MAP_WIDTH], const char tile) {
+	int x, y;
+
+	for (y = 0; y < MAP_HEIGHT; y++) {
+		for (x = 0; x < MAP_WIDTH; x++) {
+			if (map[y][x] == tile) {
+				if (tile == WATER) {
+					colors[y][x].b = TCOD_random_get_int(NULL, 150, 250);
+				}
+				else if (tile == LAVA) {
+					colors[y][x].r = TCOD_random_get_int(NULL, 180, 200);
+					colors[y][x].g = TCOD_random_get_int(NULL, 32, 128);
+				}
+			}
+		}
+	}
+}
+
 void draw_player(object_t player) {
 	TCOD_color_t player_color;
 
@@ -69,10 +88,19 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 				discovered[y][x] = 1;
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
 						color_map[y][x], TCOD_black);
+				//Disabling these calls for the mean time, doesn't work quite how I want it to
+//				if (map[y][x] == WATER)
+//					animate_tile(map, color_map, WATER);
+//				else if (map[y][x] == LAVA)
+//					animate_tile(map, color_map, LAVA);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == true && discovered[y][x] == 1) {
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
 						color_map[y][x], TCOD_black);
+//				if (map[y][x] == WATER)
+//					animate_tile(map, color_map, WATER);
+//				else if (map[y][x] == LAVA)
+//					animate_tile(map, color_map, LAVA);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == false && discovered[y][x] == 1) {
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
