@@ -258,7 +258,10 @@ void game_loop(bool save_detected) {
 			break; //Get out of main game loop, and wrap up.
 		}
 
-		key = TCOD_console_wait_for_keypress(TCOD_KEY_PRESSED);
+		//Apr 13, 2011 - this is a big change, because this means the game no longer waits purely for a keypress
+		//               and instead just keeps going, this is where a turn system needs to be implemented before
+		//               I add monsters back.
+		key = TCOD_console_check_for_keypress(TCOD_KEY_PRESSED);
 
 		if (key.vk == TCODK_ESCAPE)
 			break;
