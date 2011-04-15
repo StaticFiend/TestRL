@@ -202,7 +202,6 @@ void game_loop(bool save_detected) {
 
 		draw_map(map, map_colors, tcod_map, discovered);
 		draw_hud(player);
-//		animate_tile(map, map_colors, WATER);
 		//FIXME: This is kind of a hack to clear the top area, only an issue because there's no messaging system.
 		TCOD_console_print_left(NULL, 0, 0, TCOD_BKGND_NONE, "                                    ");
 //		draw_monster(monster, mon_num, tcod_map);
@@ -250,7 +249,7 @@ void game_loop(bool save_detected) {
 			temp_time = time(NULL);
 			cur_time = localtime(&temp_time);
 
-			strftime(obitFileName, 256, "%d%m%y_%I%M-obituary.txt", cur_time);
+			strftime(obitFileName, 256, "%Y%d%m_%I%M-obituary.txt", cur_time);
 			printf("[Debug] Testing obituary filename: %s.\n", obitFileName);
 
 			//Save a file here with said filename and information about the player, maybe the map and all that.
