@@ -30,10 +30,10 @@ draw.c - Handles drawing related functions (using 2D Arrays)
 
 #include "trl-main.h"
 
-void animate_tile(char map[][MAP_WIDTH], TCOD_color_t colors[][MAP_WIDTH], const char tile, int x, int y) {
-	if (tile == WATER && map[y][x] == WATER)
+void animate_liquids(char map[][MAP_WIDTH], TCOD_color_t colors[][MAP_WIDTH], int x, int y) {
+	if (map[y][x] == WATER)
 		colors[y][x].b = TCOD_random_get_int(NULL, 120, 250);
-	else if (tile == LAVA && map[y][x] == LAVA) {
+	else if (map[y][x] == LAVA) {
 		colors[y][x].r = TCOD_random_get_int(NULL, 180, 200);
 		colors[y][x].g = TCOD_random_get_int(NULL, 32, 128);
 	}
@@ -78,18 +78,12 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 				discovered[y][x] = 1;
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
 						color_map[y][x], TCOD_black);
-				if (map[y][x] == WATER)
-					animate_tile(map, color_map, WATER, x, y);
-				else if (map[y][x] == LAVA)
-					animate_tile(map, color_map, LAVA, x, y);
+				animate_liquids(map, color_map, x, y);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == true && discovered[y][x] == 1) {
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],
 						color_map[y][x], TCOD_black);
-				if (map[y][x] == WATER)
-					animate_tile(map, color_map, WATER, x, y);
-				else if (map[y][x] == LAVA)
-					animate_tile(map, color_map, LAVA, x, y);
+				animate_liquids(map, color_map, x, y);
 			}
 			else if (TCOD_map_is_in_fov(fov_map, x, y) == false && discovered[y][x] == 1) {
 				TCOD_console_put_char_ex(NULL, x, y + 5, (int)map[y][x],

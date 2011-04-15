@@ -35,4 +35,4 @@ void draw_map(char map[][MAP_WIDTH], TCOD_color_t color_map[][MAP_WIDTH],
 void draw_hud(object_t player);
 void draw_help();
 void draw_items(item_t loot[MAX_RANDOM_ITEMS], int loot_count, TCOD_map_t tcod_map);
-void animate_tile(char map[][MAP_WIDTH], TCOD_color_t color[][MAP_WIDTH], const char tile, int x, int y);
+void animate_liquids(char map[][MAP_WIDTH], TCOD_color_t color[][MAP_WIDTH], int x, int y);
